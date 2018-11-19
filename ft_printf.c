@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/14 19:04:48 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/18 20:23:06 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,25 @@ int		my_print(int (*f)(), va_list ap)
 	return (0);
 }
 
-int		print_plain(const char *str)
-{
-	int		i;
+/*
+**	print_plain
+**	writes string *a_str to the standard output until '\0' or '%' is encountered,
+**	increments *a_str by the length of the written string
+**	and returns this length.
+*/
 
+int		print_plain(const char **a_str)
+{
+	const char	*s;
+	int			i;
+
+	s = *a_str;
 	i = 0;
-	while (str[i] && str[i] != '%')
+	while (s[i] && s[i] != '%')
 		++i;
 	if (i)
-		write(1, str, i);
+		write(1, s, i);
+	*a_str += i;
 	return (i);
 }
 
@@ -60,19 +70,19 @@ int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	int			len;
-	int			i;
 
 	len = 0;
 	va_start(ap, format);
 	while (1)
 	{
-		i = print_plain(format);
-		len += i;
-		format += i;
-		if (*format == '%')
-			++format;
-		else
+		len += print_plain(&format);
+		if (*format == '\0')
 			break ;
+		++format;
+//
+//		parse_format(&format, ap);
+//
+		
 		if (*format == 'd')
 		{
 			len += my_print(dec, ap);
@@ -83,11 +93,12 @@ int		ft_printf(const char *format, ...)
 			len += my_print(str, ap);
 			++format;
 		}
+		
 	}
 	va_end(ap);
 	return (len);
 }
-/*
+
 int		main(void)
 {
 	int		i;
@@ -96,4 +107,3 @@ int		main(void)
 	ft_printf("%d\n", i);
 	return (0);
 }
-*/
