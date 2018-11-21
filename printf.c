@@ -31,5 +31,10 @@ int		main(void)
 	i = printf("|%5.4#q8qd|\n", 42);
 	printf("%d\n", i);
 
+#define GREEN "\e[32m"
+#define NONE "\e[0m"
+	i = printf("abc%sdef%shij\n", GREEN, NONE);
+	printf("%d\n", i);
+
 	return (0);
 }
