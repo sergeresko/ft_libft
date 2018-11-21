@@ -3,7 +3,7 @@
 
 #include "libft.h"
 
-#define	PF_FLAGS "#0- +\'"	// NO MORE NEEDED
+#define	PF_FLAGS "#0- +\'"
 #define PF_MODIFIERS "hlL"
 #define PF_CONVERSIONS "cspdibouxXfk%"
 
@@ -130,7 +130,7 @@ void	ft_parse_flags(t_fmt *a_fmt, const char **a_str)
 **	and shifts the pointer to the next character after the specification.
 **	If the argument passed through '*' is negative, .left_align is set
 **	and .width is set to the absolute value of the argument.
-**	If no width is specified, .width is set to 0 (? TODO).
+**	If no width is specified, .width isn't modified (default 0).
 */
 
 void	ft_parse_width(t_fmt *a_fmt, const char **a_str, va_list ap)
@@ -140,21 +140,16 @@ void	ft_parse_width(t_fmt *a_fmt, const char **a_str, va_list ap)
 	if (**a_str == '*')
 	{
 		width = va_arg(ap, int);
-		if (width < 0)
-		{
-			a_fmt->left_align = 1;
-			a_fmt->width = -width;
-		}
-		else
-			a_fmt->width = width;
 		++(*a_str);
 	}
 	else
-	{
 		width = ft_parse_integer(a_str);
-//		a_fmt->width = (width < 0) ? 0 : width;		// 0 or 1 or -1 (default)?
-		if (width >= 0)
-			a_fmt->width = width;
+	if (width >= 0)
+		a_fmt->width = width;
+	else
+	{
+		a_fmt->left_align = 1;
+		a_fmt->width = -width;
 	}
 }
 
@@ -172,12 +167,6 @@ void	ft_parse_precision(t_fmt *a_fmt, const char **a_str, va_list ap)
 {
 	int			precision;
 
-//	if (**a_str != '.')
-//	{
-//		a_fmt->precision = -1;
-//		return ;
-//	}
-//	++(*a_str);
 	if (**a_str == '*')
 	{
 		precision = va_arg(ap, int);
@@ -185,7 +174,6 @@ void	ft_parse_precision(t_fmt *a_fmt, const char **a_str, va_list ap)
 	}
 	else
 		precision = ft_parse_integer(a_str);
-//	a_fmt->precision = (precision < 0) ? 0 : precision;
 	if (precision >= 0)
 		a_fmt->precision = precision;
 }
