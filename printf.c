@@ -28,5 +28,8 @@ int		main(void)
 	i = printf("|%*.*f|\n", 10, 0, 3.14);
 	printf("%d\n", i);
 
+	i = printf("|%5.4#q8qd|\n", 42);
+	printf("%d\n", i);
+
 	return (0);
 }

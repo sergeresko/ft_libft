@@ -1,8 +1,13 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-#define	FT_PRINTF_FLAGS "#0- +\'"
+#include "libft.h"
 
+#define	PF_FLAGS "#0- +\'"	// NO MORE NEEDED
+#define PF_MODIFIERS "hlL"
+#define PF_CONVERSIONS "cspdibouxXfk%"
+
+/*
 int		unsigned_long(char *str, unsigned long n)
 {
 	int		len;
@@ -16,12 +21,22 @@ int		unsigned_long(char *str, unsigned long n)
 	}
 	return (len);
 }
+*/
+
+typedef enum	e_modifier{
+	MOD_NONE = 0,
+	MOD_HH,
+	MOD_H,
+	MOD_L,
+	MOD_LL,
+	MOD_L_CAPITAL
+}				t_modifier;
 
 typedef struct	s_fmt
 {
 	int			width;
 	int			precision;
-	char		flags[8];
+//	char		flags[8];
 	unsigned	alternate: 1;
 	unsigned	zero_padding: 1;
 	unsigned	left_align: 1;
@@ -29,7 +44,7 @@ typedef struct	s_fmt
 	unsigned	plus: 1;
 	unsigned	grouping: 1;
 	unsigned	capital: 1;		//	needed ?
-	char		modifier;
+	t_modifier	modifier;
 	char		conversion;
 	unsigned	base;			//	needed ?
 }				t_fmt;
@@ -61,10 +76,11 @@ int		ft_parse_integer(const char **a_str)
 }
 
 /*
-**		ft_parse_flags
+**		old_ft_parse_flags
+**	NO MORE NEEDED
 */
-
-void	ft_parse_flags(t_fmt *a_fmt, const char **a_str)
+/*
+void	old_ft_parse_flags(t_fmt *a_fmt, const char **a_str)
 {
 	char		c;
 
@@ -77,13 +93,13 @@ void	ft_parse_flags(t_fmt *a_fmt, const char **a_str)
 		c = **a_str;
 	}
 }
-
-/*
-**		old_ft_parse_flags
-**	NO MORE NEEDED
 */
 
-void	old_ft_parse_flags(t_fmt *a_fmt, const char **a_str)
+/*
+**		ft_parse_flags
+*/
+
+void	ft_parse_flags(t_fmt *a_fmt, const char **a_str)
 {
 	char		c;
 	
@@ -91,7 +107,7 @@ void	old_ft_parse_flags(t_fmt *a_fmt, const char **a_str)
 	{
 		if (c == '#')
 			a_fmt->alternate = 1;
-		else if (c = '0')
+		else if (c == '0')
 			a_fmt->zero_padding = 1;
 		else if (c == '-')
 			a_fmt->left_align = 1;
@@ -129,12 +145,16 @@ void	ft_parse_width(t_fmt *a_fmt, const char **a_str, va_list ap)
 			a_fmt->left_align = 1;
 			a_fmt->width = -width;
 		}
+		else
+			a_fmt->width = width;
 		++(*a_str);
 	}
 	else
 	{
 		width = ft_parse_integer(a_str);
-		a_fmt->width = (width < 0) ? 0 : width;		// 0 or 1 or -1 (default)?
+//		a_fmt->width = (width < 0) ? 0 : width;		// 0 or 1 or -1 (default)?
+		if (width >= 0)
+			a_fmt->width = width;
 	}
 }
 
@@ -161,28 +181,42 @@ void	ft_parse_precision(t_fmt *a_fmt, const char **a_str, va_list ap)
 	if (**a_str == '*')
 	{
 		precision = va_arg(ap, int);
-		++(*a_fmt);
+		++(*a_str);
 	}
 	else
 		precision = ft_parse_integer(a_str);
-	a_fmt->precision = (precision < 0) ? 0 : precision;
+//	a_fmt->precision = (precision < 0) ? 0 : precision;
+	if (precision >= 0)
+		a_fmt->precision = precision;
 }
 
 /*
 **		ft_parse_modifier
-**	TODO
+**	Sets .modifier field to the LAST value specified in the initial portion
+**	of string *a_str
+**	and shifts the pointer to the next chararcter after the specification.
+**	A specification is considered a sequence of any length composed of "hlL".
+**	Examples:
+**		hlh  ->  MOD_H
+**		llhL ->  MOD_L_CAPITAL
+**		Lhh  ->  MOD_HH
 */
 
 void	ft_parse_modifier(t_fmt *a_fmt, const char **a_str)
 {
 	char		c;
+	t_modifier	m;
 
-	while ((c = **a_str))
+	while (1)
 	{
+		c = **a_str;
+		m = a_fmt->modifier;
 		if (c == 'h')
-			a_fmt->modifier = 'h';
+			a_fmt->modifier = (m == MOD_H || m == MOD_HH) ? MOD_HH : MOD_H;
 		else if (c == 'l')
-			a_fmt->modifier = 'l';
+			a_fmt->modifier = (m == MOD_L || m == MOD_LL) ? MOD_LL : MOD_L;
+		else if (c == 'L')
+			a_fmt->modifier = MOD_L_CAPITAL;
 		else
 			break ;
 		++(*a_str);
@@ -196,6 +230,23 @@ void	ft_parse_modifier(t_fmt *a_fmt, const char **a_str)
 
 void	ft_parse_conversion(t_fmt *a_fmt, const char **a_str)
 {
+	if ((a_fmt->conversion = **a_str))
+		++(*a_str);
+}
+
+int		is_flag(char c)
+{
+	return (c && ft_strchr(PF_FLAGS, c));
+}
+
+int		is_modifier(char c)
+{
+	return (c && ft_strchr(PF_MODIFIERS, c));
+}
+
+int		is_conversion(char c)
+{
+	return (c && ft_strchr(PF_CONVERSIONS, c));
 }
 
 /*
@@ -205,11 +256,36 @@ void	ft_parse_conversion(t_fmt *a_fmt, const char **a_str)
 
 void	ft_parse_format(t_fmt *a_fmt, const char **a_str, va_list ap)
 {
-	ft_parse_flags(a_fmt, a_str);
-	ft_parse_width(a_fmt, a_str, ap);
-	ft_parse_precision(a_fmt, a_str, ap);
-	ft_parse_modifier(a_fmt, a_str);
+/*
+	while (1)
+	{
+		ft_parse_flags(a_fmt, a_str);
+		ft_parse_width(a_fmt, a_str, ap);
+		ft_parse_precision(a_fmt, a_str, ap);
+		ft_parse_modifier(a_fmt, a_str);
+		if (**a_str && ft_strchr(PF_CONVERSIONS, **a_str) == NULL)
+			++(*a_str);
+		else
+			break ;
+	}
 	ft_parse_conversion(a_fmt, a_str);
+*/
+	char		c;
+
+	a_fmt->precision = -1;
+	while ((c = **a_str) && !(a_fmt->conversion))
+		if (is_flag(c))
+			ft_parse_flags(a_fmt, a_str);
+		else if (ft_isdigit(c) || c == '*')
+			ft_parse_width(a_fmt, a_str, ap);
+		else if (c == '.')
+			ft_parse_precision(a_fmt, a_str, ap);
+		else if (is_modifier(c))
+			ft_parse_modifier(a_fmt, a_str);
+		else if (is_conversion(c))
+			ft_parse_conversion(a_fmt, a_str);
+		else
+			++(*a_str);
 //	TODO
 }
 
@@ -245,12 +321,54 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 {
 	t_fmt		fmt;
 
-	if (**a_str == '%')
-	{
-		write(1, *a_str, 1);
-		return (1);
-	}
-	ft_bzero(fmt, sizeof(fmt));		//
+	ft_bzero(&fmt, sizeof(fmt));		//
+	ft_parse_format(&fmt, a_str, ap);
+	//
+	// Test:
+	ft_putstr("\n{ flags: ");
+	if (fmt.alternate)
+		ft_putchar('#');
+	if (fmt.zero_padding)
+		ft_putchar('0');
+	if (fmt.left_align)
+		ft_putchar('-');
+	if (fmt.blank)
+		ft_putchar(' ');
+	if (fmt.plus)
+		ft_putchar('+');
+	if (!(fmt.alternate || fmt.zero_padding || fmt.left_align || fmt.blank || fmt.plus))
+		ft_putstr("NONE");
+	ft_putstr("; width: ");
+	ft_putnbr(fmt.width);
+	ft_putstr("; precision: ");
+	if (fmt.precision == -1)
+		ft_putstr("NONE");
+	else
+		ft_putnbr(fmt.precision);
+	ft_putstr("; modifier: ");
+	if (fmt.modifier == MOD_HH)
+		ft_putstr("hh");
+	else if (fmt.modifier == MOD_H)
+		ft_putstr("h");
+	else if (fmt.modifier == MOD_L)
+		ft_putstr("l");
+	else if (fmt.modifier == MOD_LL)
+		ft_putstr("ll");
+	else if (fmt.modifier == MOD_L_CAPITAL)
+		ft_putstr("L");
+	else
+		ft_putstr("NONE");
+	ft_putstr("; conversion: ");
+	if (fmt.conversion)
+		ft_putchar(fmt.conversion);
+	else
+		ft_putstr("NONE");
+	ft_putstr("; }\n");
+	if (fmt.conversion && fmt.conversion != '%')
+		(void)va_arg(ap, int);
+	//
+	//
+	return (1000);					//
 }
 
 /*
@@ -274,4 +392,16 @@ int		ft_printf(const char *format, ...)
 	}
 	va_end(ap);
 	return (len);
+}
+
+int		main(void)
+{
+	int		i;
+
+	ft_putstr("|");
+	i = ft_printf("%10lh*h", 3, 4);
+	ft_putstr("|\nlength = ");
+	ft_putnbr(i);
+	ft_putstr("\n");
+	return (0);
 }
