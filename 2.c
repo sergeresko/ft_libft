@@ -49,6 +49,102 @@ typedef struct	s_fmt
 	unsigned	base;			//	needed ?
 }				t_fmt;
 
+
+
+
+
+
+
+
+
+
+void	ft_print_repeated(char c, int times)
+{
+	while (times--)
+		write(1, &c, 1);
+}
+
+#define INT_BUF_SIZE 1024
+
+char	*ft_integer_s(int num)
+{
+	static char		s[INT_BUF_SIZE + 1];
+	char			*i;
+
+	i = s + INT_BUF_SIZE;
+	*i = '\0';
+	if (num < 0)
+		num *= -1;	// TODO
+	while (num)
+	{
+		*(--i) = '0' + num % 10;
+		num /= 10;
+	}
+	return (i);
+}
+
+int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
+{
+//	if (a_fmt->precision is given)
+	if (a_fmt->precision != -1)
+	{
+		if (a_fmt->precision > n_digits)
+			return (a_fmt->precision - n_digits);
+	}
+	else if (a_fmt->zero_padding && !a_fmt->left_align)
+	{
+		if (a_fmt->width > n_digits)
+			return (a_fmt->width - n_digits - n_sign);
+	}
+	else if (n_digits == 0)
+		return (1);
+	return (0);
+}
+
+int		ft_print_integer(const t_fmt *a_fmt, int num)
+{
+	char	*s;
+	int		n_sign;
+	int		n_zeroes;
+	int		n_digits;
+	int		val_len;
+
+	s = ft_integer_s(num);
+	n_digits = ft_strlen(s);
+	n_sign = (num < 0 || a_fmt->blank || a_fmt->plus);
+	n_zeroes = count_zeroes(a_fmt, n_sign, n_digits);
+	val_len = n_sign + n_zeroes + n_digits;
+
+	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision != -1) && a_fmt->width > val_len)
+		ft_print_repeated(' ', a_fmt->width - val_len);
+	if (num < 0)
+		ft_putchar('-');
+	else if (a_fmt->blank)
+		ft_putchar(' ');
+	else if (a_fmt->plus)
+		ft_putchar('+');
+	if (n_zeroes)
+		ft_print_repeated('0', n_zeroes);
+	write(1, s, n_digits);		//	OR ft_putstr(s);
+	if (a_fmt->left_align && a_fmt->width > val_len)
+		ft_print_repeated(' ', a_fmt->width - val_len);
+	return ((a_fmt->width > val_len) ? a_fmt->width : val_len);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 **		ft_parse_integer
 **	Returns a non-negative number represented in the beginning of string *a_str
@@ -62,10 +158,10 @@ int		ft_parse_integer(const char **a_str)
 	const char	*s;
 
 	s = *a_str;
-	if (*s < '0' || *s > '9')
+	if (!ft_isdigit(*s))
 		return (-1);
 	n = 0;
-	while ('0' <= *s && *s <= '9')
+	while (ft_isdigit(*s))
 	{
 		n *= 10;
 		n += *s - '0';
@@ -176,6 +272,8 @@ void	ft_parse_precision(t_fmt *a_fmt, const char **a_str, va_list ap)
 		precision = ft_parse_integer(a_str);
 	if (precision >= 0)
 		a_fmt->precision = precision;
+	else
+		a_fmt->precision = 0;
 }
 
 /*
@@ -284,10 +382,19 @@ int		ft_print_plain(const char **a_str)
 int		ft_print_formatted(const char **a_str, va_list ap)
 {
 	t_fmt		fmt;
+	int			len;
 
 	ft_parse_format(&fmt, a_str, ap);
 	//
 	// Test:
+	if (fmt.conversion == 'd' || fmt.conversion == 'i')
+		len = ft_print_integer(&fmt, va_arg(ap, int));
+	else
+	{
+
+
+
+
 	ft_putstr("\e[32m{\n    flags:      \"");
 	if (fmt.alternate)
 		ft_putchar('#');
@@ -327,9 +434,13 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	ft_putstr(";\n}\e[0m");
 	if (fmt.conversion && fmt.conversion != '%')
 		(void)va_arg(ap, int);
+	len = 1000;
+
+
+	}
 	//
 	//
-	return (1000);					//
+	return (len);					//
 }
 
 /*
@@ -355,11 +466,29 @@ int		ft_printf(const char *format, ...)
 	return (len);
 }
 
-int		main(void)
+//
+//
+#include <stdio.h>
+//
+//
+
+int		main(int argc, char **argv)
 {
 	int		i;
+	char	*format;
+	int		num;
 
-	i = ft_printf("abc%+08.3fABC%%%-*d", 3.14, 555, 42);
+//	i = ft_printf("abc%+08.3fABC%%%*d", 3.14, 10, 42);
+	if (argc != 3)
+		return (0);
+	format = argv[1];
+	num = ft_atoi(argv[2]);
+	i = ft_printf(format, num);
+	ft_putstr("\e[31m(length = ");
+	ft_putnbr(i);
+	ft_putstr(")\e[0m\n");
+	i = printf(format, num);
+	fflush(NULL);
 	ft_putstr("\e[31m(length = ");
 	ft_putnbr(i);
 	ft_putstr(")\e[0m\n");

@@ -36,5 +36,8 @@ int		main(void)
 	i = printf("abc%sdef%shij\n", GREEN, NONE);
 	printf("%d\n", i);
 
+	i = printf("|%qd|\n", 123456);
+	printf("%d\n", i);
+
 	return (0);
 }
