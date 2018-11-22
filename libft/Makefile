@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/23 14:52:25 by syeresko          #+#    #+#              #
-#    Updated: 2018/10/29 19:20:45 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/22 20:40:50 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ SRC = \
 	ft_strsplit_lst.c \
 	ft_strtrim.c \
 	ft_itoa.c \
-	ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c \
-	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+	ft_putchar.c ft_putnchar.c ft_putstr.c ft_putendl.c ft_putnbr.c \
+	ft_putchar_fd.c ft_putnchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 	ft_lstnew.c \
 	ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_striteri.c \
 	ft_lstmap.c ft_strmapi.c \

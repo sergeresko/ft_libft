@@ -120,7 +120,7 @@ int		ft_print_integer(const t_fmt *a_fmt, int num)
 
 	s = ft_integer_s(num);
 	n_digits = ft_strlen(s);
-	n_sign = (num < 0 || a_fmt->blank || a_fmt->plus);
+	n_sign = (num < 0 || a_fmt->plus || a_fmt->blank);
 	n_zeroes = count_zeroes(a_fmt, n_sign, n_digits);
 	val_len = n_sign + n_zeroes + n_digits;
 
@@ -128,10 +128,10 @@ int		ft_print_integer(const t_fmt *a_fmt, int num)
 		ft_print_repeated(' ', a_fmt->width - val_len);
 	if (num < 0)
 		ft_putchar('-');
-	else if (a_fmt->blank)
-		ft_putchar(' ');
 	else if (a_fmt->plus)
 		ft_putchar('+');
+	else if (a_fmt->blank)
+		ft_putchar(' ');
 	ft_print_repeated('0', n_zeroes);
 	write(1, s, n_digits);		//	OR ft_putstr(s);
 	if (a_fmt->left_align)

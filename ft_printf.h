@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/22 18:54:10 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/22 20:36:43 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include <stdarg.h>
 
-# define	PF_FLAGS "#0- +\'"
-# define PF_MODIFIERS "hlL"
-# define PF_CONVERSIONS "cspdibouxXfk%"
+# define	PF_FLAGS		"#0- +\'"
+# define	PF_MODIFIERS	"hlL"
+# define	PF_CONVERSIONS	"cspdibouxXfk%"
 
 typedef enum	e_modifier{
 	MOD_NONE = 0,
@@ -53,7 +53,7 @@ typedef struct	s_fmt
 
 void	ft_print_repeated(char c, int times);
 
-#define INT_BUF_SIZE 1024
+//	#define INT_BUF_SIZE 1024
 
 char	*ft_integer_s(int num);
 int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits);
@@ -70,5 +70,10 @@ void	ft_parse_precision(t_fmt *a_fmt, const char **a_str, va_list ap);
 void	ft_parse_modifier(t_fmt *a_fmt, const char **a_str);
 void	ft_parse_conversion(t_fmt *a_fmt, const char **a_str);		// needed ?
 void	ft_parse_format(t_fmt *a_fmt, const char **a_str, va_list ap);
+
+int		ft_print_plain(const char **a_str);
+int		ft_print_formatted(const char **a_str, va_list ap);
+
+int		ft_printf(const char *format, ...);
 
 #endif
