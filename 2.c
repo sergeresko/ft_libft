@@ -55,12 +55,21 @@ typedef struct	s_fmt
 
 
 
+//	add to libft
+int		ft_max(int a, int b)
+{
+	return (a > b ? a : b);
+}
 
-
+//	add to libft
+int		ft_min(int a, int b)
+{
+	return (a < b ? a : b);
+}
 
 void	ft_print_repeated(char c, int times)
 {
-	while (times--)
+	while (times-- > 0)
 		write(1, &c, 1);
 }
 
@@ -68,19 +77,19 @@ void	ft_print_repeated(char c, int times)
 
 char	*ft_integer_s(int num)
 {
-	static char		s[INT_BUF_SIZE + 1];
-	char			*i;
+	static char		buf[INT_BUF_SIZE + 1];
+	char			*s;
 
-	i = s + INT_BUF_SIZE;
-	*i = '\0';
+	s = buf + INT_BUF_SIZE;
+	*s = '\0';
 	if (num < 0)
 		num *= -1;	// TODO
 	while (num)
 	{
-		*(--i) = '0' + num % 10;
+		*(--s) = '0' + num % 10;
 		num /= 10;
 	}
-	return (i);
+	return (s);
 }
 
 int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
@@ -115,7 +124,7 @@ int		ft_print_integer(const t_fmt *a_fmt, int num)
 	n_zeroes = count_zeroes(a_fmt, n_sign, n_digits);
 	val_len = n_sign + n_zeroes + n_digits;
 
-	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision != -1) && a_fmt->width > val_len)
+	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision != -1))
 		ft_print_repeated(' ', a_fmt->width - val_len);
 	if (num < 0)
 		ft_putchar('-');
@@ -123,10 +132,9 @@ int		ft_print_integer(const t_fmt *a_fmt, int num)
 		ft_putchar(' ');
 	else if (a_fmt->plus)
 		ft_putchar('+');
-	if (n_zeroes)
-		ft_print_repeated('0', n_zeroes);
+	ft_print_repeated('0', n_zeroes);
 	write(1, s, n_digits);		//	OR ft_putstr(s);
-	if (a_fmt->left_align && a_fmt->width > val_len)
+	if (a_fmt->left_align)
 		ft_print_repeated(' ', a_fmt->width - val_len);
 	return ((a_fmt->width > val_len) ? a_fmt->width : val_len);
 }
@@ -257,6 +265,7 @@ void	ft_parse_width(t_fmt *a_fmt, const char **a_str, va_list ap)
 **	If the specification doesn't start with '.', .precision is set to -1.
 **	If the number after '.' is missing or if the agrument
 **	passed through '*' is negative, .precision is set to 0.
+**	TODO: update description.
 */
 
 void	ft_parse_precision(t_fmt *a_fmt, const char **a_str, va_list ap)
@@ -273,7 +282,7 @@ void	ft_parse_precision(t_fmt *a_fmt, const char **a_str, va_list ap)
 	if (precision >= 0)
 		a_fmt->precision = precision;
 	else
-		a_fmt->precision = 0;
+		a_fmt->precision = 0;	// NO!!!
 }
 
 /*
