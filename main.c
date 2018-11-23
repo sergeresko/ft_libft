@@ -28,7 +28,8 @@ int		main(int argc, char **argv)
 
 	const char	*s;
 
-	s = argv[2];
+//	s = argv[2];
+	s = NULL;
 	i = ft_printf(format, s);
 	printf("\e[31m(length = %d)\e[0m\n", i);
 	i = printf(format, s);

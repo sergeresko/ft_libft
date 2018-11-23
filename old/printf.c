@@ -42,5 +42,8 @@ int		main(void)
 	i = printf("|%2c|\n", '\0');
 	printf("%d\n", i);
 
+	i = printf("|%.3s|\n", (char *)0);
+	printf("%d\n", i);
+
 	return (0);
 }
