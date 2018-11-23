@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "libft.h"
 #include "ft_printf.h"
 
 int		main(int argc, char **argv)
@@ -31,14 +30,9 @@ int		main(int argc, char **argv)
 
 	s = argv[2];
 	i = ft_printf(format, s);
-	ft_putstr("\e[31m(length = ");
-	ft_putnbr(i);
-	ft_putstr(")\e[0m\n");
+	printf("\e[31m(length = %d)\e[0m\n", i);
 	i = printf(format, s);
-	fflush(NULL);
-	ft_putstr("\e[31m(length = ");
-	ft_putnbr(i);
-	ft_putstr(")\e[0m\n");
+	printf("\e[31m(length = %d)\e[0m\n", i);
 
 	return (0);
 }
