@@ -31,17 +31,17 @@ typedef enum	e_modifier{
 typedef struct	s_fmt
 {
 	int			width;
-	int			precision;
+	int			prec;
 //	char		flags[8];
-	unsigned	alternate: 1;
-	unsigned	zero_padding: 1;
-	unsigned	left_align: 1;
+	unsigned	alt: 1;
+	unsigned	zero: 1;
+	unsigned	left: 1;
 	unsigned	blank: 1;
 	unsigned	plus: 1;
-	unsigned	grouping: 1;
+	unsigned	group: 1;
 	unsigned	capital: 1;		//	needed ?
-	t_modifier	modifier;
-	char		conversion;
+	t_modifier	mod;
+	char		conv;
 	unsigned	base;			//	needed ?
 }				t_fmt;
 

@@ -15,7 +15,7 @@
 
 #include <unistd.h>		// for write
 
-int		ft_print_string(const t_fmt *a_fmt, const char *str)
+int		ft_print_string(const t_fmt *f, const char *str)
 {
 	const char	null_msg[] = "(null)";
 	int			n_characters;
@@ -23,12 +23,12 @@ int		ft_print_string(const t_fmt *a_fmt, const char *str)
 	if (!str)
 		str = null_msg;
 	n_characters = ft_strlen(str);
-	if (0 <= a_fmt->precision && a_fmt->precision < n_characters)
-		n_characters = a_fmt->precision;
-	if (!a_fmt->left_align)
-		ft_putnchar((a_fmt->zero_padding) ? '0' : ' ', a_fmt->width - n_characters);
+	if (0 <= f->prec && f->prec < n_characters)
+		n_characters = f->prec;
+	if (!f->left)
+		ft_putnchar((f->zero) ? '0' : ' ', f->width - n_characters);
 	write(1, str, n_characters);	// here write is used
-	if (a_fmt->left_align)
-		ft_putnchar(' ', a_fmt->width - n_characters);
-	return ((a_fmt->width > n_characters) ? a_fmt->width : n_characters);
+	if (f->left)
+		ft_putnchar(' ', f->width - n_characters);
+	return (ft_max(f->width, n_characters));
 }

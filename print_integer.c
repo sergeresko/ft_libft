@@ -37,7 +37,7 @@ char	*ft_integer_s(long long num)
 	return (s);
 }
 
-int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
+int		count_zeroes(const t_fmt *f, int n_sign, int n_digits)
 {
 	/*
 	if (a_fmt->precision >= 0)
@@ -54,14 +54,14 @@ int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
 		return (1);
 	return (0);
 	*/
-	if (a_fmt->precision >= 0)
-		return (ft_max(0, a_fmt->precision - n_digits));
-	if (a_fmt->zero_padding && !a_fmt->left_align)
-		return (ft_max(0, a_fmt->width - n_digits - n_sign));
+	if (f->prec >= 0)
+		return (ft_max(0, f->prec - n_digits));
+	if (f->zero && !f->left)
+		return (ft_max(0, f->width - n_digits - n_sign));
 	return (n_digits == 0);
 }
 
-int		ft_print_integer(const t_fmt *a_fmt, long long num)
+int		ft_print_integer(const t_fmt *f, long long num)
 {
 	char	*s;
 	int		n_sign;
@@ -71,21 +71,21 @@ int		ft_print_integer(const t_fmt *a_fmt, long long num)
 
 	s = ft_integer_s(num);
 	n_digits = ft_strlen(s);
-	n_sign = (num < 0 || a_fmt->plus || a_fmt->blank);
-	n_zeroes = count_zeroes(a_fmt, n_sign, n_digits);
+	n_sign = (num < 0 || f->plus || f->blank);
+	n_zeroes = count_zeroes(f, n_sign, n_digits);
 	val_len = n_sign + n_zeroes + n_digits;
 
-	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision >= 0))
-		ft_putnchar(' ', a_fmt->width - val_len);
+	if (!f->left && (!f->zero || f->prec >= 0))
+		ft_putnchar(' ', f->width - val_len);
 	if (num < 0)
 		ft_putchar('-');
-	else if (a_fmt->plus)
+	else if (f->plus)
 		ft_putchar('+');
-	else if (a_fmt->blank)
+	else if (f->blank)
 		ft_putchar(' ');
 	ft_putnchar('0', n_zeroes);
 	write(1, s, n_digits);		//	OR ft_putstr(s);
-	if (a_fmt->left_align)
-		ft_putnchar(' ', a_fmt->width - val_len);
-	return ((a_fmt->width > val_len) ? a_fmt->width : val_len);
+	if (f->left)
+		ft_putnchar(' ', f->width - val_len);
+	return (ft_max(f->width, val_len));
 }

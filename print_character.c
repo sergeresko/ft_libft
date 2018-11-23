@@ -13,12 +13,12 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int		ft_print_character(const t_fmt *a_fmt, char c)
+int		ft_print_character(const t_fmt *f, char c)
 {
-	if (!a_fmt->left_align)
-		ft_putnchar((a_fmt->zero_padding) ? '0' : ' ', a_fmt->width - 1);
+	if (!f->left)
+		ft_putnchar((f->zero ? '0' : ' '), f->width - 1);
 	ft_putchar(c);
-	if (a_fmt->left_align)
-		ft_putnchar(' ', a_fmt->width - 1);
-	return ((a_fmt->width > 1) ? a_fmt->width : 1);
+	if (f->left)
+		ft_putnchar(' ', f->width - 1);
+	return (ft_max(1, f->width));
 }

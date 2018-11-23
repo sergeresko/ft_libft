@@ -35,19 +35,20 @@ char	*ft_octal_s(unsigned long long num)
 	return (s);
 }
 
-static int	count_zeroes_o(const t_fmt *a_fmt, int n_digits)
+static int	count_zeroes_o(const t_fmt *f, int n_digits)
 {
 	int		min_zeroes;
 
-	min_zeroes = (a_fmt->alternate == 1);
-	if (a_fmt->precision >= 0)
-		return (ft_max(min_zeroes, a_fmt->precision - n_digits));
-	if (a_fmt->zero_padding && !a_fmt->left_align)
-		return (ft_max(min_zeroes, a_fmt->width - n_digits));
+	min_zeroes = (f->alt == 1);
+	if (f->prec >= 0)
+		return (ft_max(min_zeroes, f->prec - n_digits));
+	if (f->zero && !f->left)
+		return (ft_max(min_zeroes, f->width - n_digits));
 	return (ft_max(min_zeroes, (n_digits == 0)));
+//	return ((n_digits == 0) ? 1 : min_zeroes);
 }
 
-int		ft_print_octal(const t_fmt *a_fmt, unsigned long long num)
+int		ft_print_octal(const t_fmt *f, unsigned long long num)
 {
 	char	*s;
 	int		n_zeroes;
@@ -56,14 +57,14 @@ int		ft_print_octal(const t_fmt *a_fmt, unsigned long long num)
 
 	s = ft_octal_s(num);
 	n_digits = ft_strlen(s);
-	n_zeroes = count_zeroes_o(a_fmt, n_digits);
+	n_zeroes = count_zeroes_o(f, n_digits);
 	val_len = n_zeroes + n_digits;
 
-	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision >= 0))
-		ft_putnchar(' ', a_fmt->width - val_len);
+	if (!f->left && (!f->zero || f->prec >= 0))
+		ft_putnchar(' ', f->width - val_len);
 	ft_putnchar('0', n_zeroes);
 	write(1, s, n_digits);		//	OR ft_putstr(s);
-	if (a_fmt->left_align)
-		ft_putnchar(' ', a_fmt->width - val_len);
-	return ((a_fmt->width > val_len) ? a_fmt->width : val_len);
+	if (f->left)
+		ft_putnchar(' ', f->width - val_len);
+	return (ft_max(f->width, val_len));
 }

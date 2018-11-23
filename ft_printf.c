@@ -51,37 +51,37 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	ft_parse_format(&fmt, a_str, ap);
 	//
 	// Test:
-	if (fmt.conversion == 'd' || fmt.conversion == 'i')
+	if (fmt.conv == 'd' || fmt.conv == 'i')
 	{
 		long long int	num;
 
-		if (fmt.modifier == MOD_HH)
+		if (fmt.mod == MOD_HH)
 			num = (char)va_arg(ap, int);
-		else if (fmt.modifier == MOD_H)
+		else if (fmt.mod == MOD_H)
 			num = (short)va_arg(ap, int);
-		else if (fmt.modifier == MOD_L)
+		else if (fmt.mod == MOD_L)
 			num = va_arg(ap, long);
-		else if (fmt.modifier == MOD_LL)
+		else if (fmt.mod == MOD_LL)
 			num = va_arg(ap, long long);
 		else
 			num = va_arg(ap, int);
 		len = ft_print_integer(&fmt, num);
 	}
-	else if (fmt.conversion == 'c')
+	else if (fmt.conv == 'c')
 		len = ft_print_character(&fmt, (char)va_arg(ap, int));
-	else if (fmt.conversion == 's')
+	else if (fmt.conv == 's')
 		len = ft_print_string(&fmt, va_arg(ap, char *));
-	else if (fmt.conversion == 'o')
+	else if (fmt.conv == 'o')
 	{
 		unsigned long long	num;
 
-		if (fmt.modifier == MOD_HH)
+		if (fmt.mod == MOD_HH)
 			num = (unsigned char)va_arg(ap, unsigned);
-		else if (fmt.modifier == MOD_H)
+		else if (fmt.mod == MOD_H)
 			num = (unsigned short)va_arg(ap, unsigned);
-		else if (fmt.modifier == MOD_L)
+		else if (fmt.mod == MOD_L)
 			num = va_arg(ap, unsigned long);
-		else if (fmt.modifier == MOD_LL)
+		else if (fmt.mod == MOD_LL)
 			num = va_arg(ap, unsigned long long);
 		else
 			num = va_arg(ap, unsigned);
@@ -93,11 +93,11 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 
 
 	ft_putstr("\e[32m{\n    flags:      \"");
-	if (fmt.alternate)
+	if (fmt.alt)
 		ft_putchar('#');
-	if (fmt.zero_padding)
+	if (fmt.zero)
 		ft_putchar('0');
-	if (fmt.left_align)
+	if (fmt.left)
 		ft_putchar('-');
 	if (fmt.blank)
 		ft_putchar(' ');
@@ -106,30 +106,30 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	ft_putstr("\";\n    width:      ");
 	ft_putnbr(fmt.width);
 	ft_putstr(";\n    precision:  ");
-	if (fmt.precision == -1)
+	if (fmt.prec == -1)
 		ft_putstr("NONE");
 	else
 		ft_putnbr(fmt.precision);
 	ft_putstr(";\n    modifier:   ");
-	if (fmt.modifier == MOD_HH)
+	if (fmt.mod == MOD_HH)
 		ft_putstr("hh");
-	else if (fmt.modifier == MOD_H)
+	else if (fmt.mod == MOD_H)
 		ft_putstr("h");
-	else if (fmt.modifier == MOD_L)
+	else if (fmt.mod == MOD_L)
 		ft_putstr("l");
-	else if (fmt.modifier == MOD_LL)
+	else if (fmt.mod == MOD_LL)
 		ft_putstr("ll");
-	else if (fmt.modifier == MOD_L_CAPITAL)
+	else if (fmt.mod == MOD_L_CAPITAL)
 		ft_putstr("L");
 	else
 		ft_putstr("NONE");
 	ft_putstr(";\n    conversion: ");
-	if (fmt.conversion)
-		ft_putchar(fmt.conversion);
+	if (fmt.conv)
+		ft_putchar(fmt.conv);
 	else
 		ft_putstr("NONE");
 	ft_putstr(";\n}\e[0m");
-	if (fmt.conversion && fmt.conversion != '%')
+	if (fmt.conv && fmt.conv != '%')
 		(void)va_arg(ap, int);
 	len = 1000;
 
