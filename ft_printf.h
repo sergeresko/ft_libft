@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/23 14:00:31 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/23 21:20:08 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int		ft_print_integer(const t_fmt *a_fmt, long long num);
 int		ft_print_character(const t_fmt *a_fmt, char c);
 
 int		ft_print_string(const t_fmt *a_fmt, const char *str);
+
+int		ft_print_octal(const t_fmt *a_fmt, unsigned long long num);
+
+
 
 
 
