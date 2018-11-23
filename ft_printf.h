@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/23 13:46:07 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/23 14:00:31 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # define	PF_FLAGS		"#0- +\'"
 # define	PF_MODIFIERS	"hlL"
-# define	PF_CONVERSIONS	"cspdibouxXfk%"
+# define	PF_CONVERSIONS	"cspdibBouxXfk%"
 
 typedef enum	e_modifier{
 	MOD_NONE = 0,
