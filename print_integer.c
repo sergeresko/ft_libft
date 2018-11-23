@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 16:51:02 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/22 20:39:51 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/23 12:38:11 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #define INT_BUF_SIZE 1024
 
-char	*ft_integer_s(int num)
+char	*ft_integer_s(long long num)
 {
 	static char		buf[INT_BUF_SIZE + 1];
 	char			*s;
@@ -28,7 +28,7 @@ char	*ft_integer_s(int num)
 	s = buf + INT_BUF_SIZE;
 	*s = '\0';
 	if (num < 0)
-		num *= -1;	// TODO
+		num *= -1;	// TODO: -9223372036854775808 is not handled
 	while (num)
 	{
 		*(--s) = '0' + num % 10;
@@ -40,7 +40,7 @@ char	*ft_integer_s(int num)
 int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
 {
 //	if (a_fmt->precision is given)
-	if (a_fmt->precision != -1)
+	if (a_fmt->precision >= 0)
 	{
 		if (a_fmt->precision > n_digits)
 			return (a_fmt->precision - n_digits);
@@ -55,7 +55,7 @@ int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
 	return (0);
 }
 
-int		ft_print_integer(const t_fmt *a_fmt, int num)
+int		ft_print_integer(const t_fmt *a_fmt, long long num)
 {
 	char	*s;
 	int		n_sign;
@@ -69,7 +69,7 @@ int		ft_print_integer(const t_fmt *a_fmt, int num)
 	n_zeroes = count_zeroes(a_fmt, n_sign, n_digits);
 	val_len = n_sign + n_zeroes + n_digits;
 
-	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision != -1))
+	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision >= 0))
 		ft_putnchar(' ', a_fmt->width - val_len);
 	if (num < 0)
 		ft_putchar('-');

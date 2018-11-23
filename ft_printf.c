@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/22 18:50:00 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/23 13:47:02 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,25 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	//
 	// Test:
 	if (fmt.conversion == 'd' || fmt.conversion == 'i')
-		len = ft_print_integer(&fmt, va_arg(ap, int));
+	{
+		long long int	num;
+
+		if (fmt.modifier == MOD_HH)
+			num = (char)va_arg(ap, int);
+		else if (fmt.modifier == MOD_H)
+			num = (short)va_arg(ap, int);
+		else if (fmt.modifier == MOD_L)
+			num = va_arg(ap, long);
+		else if (fmt.modifier == MOD_LL)
+			num = va_arg(ap, long long);
+		else
+			num = va_arg(ap, int);
+		len = ft_print_integer(&fmt, num);
+	}
+	else if (fmt.conversion == 'c')
+		len = ft_print_character(&fmt, (char)va_arg(ap, int));
+	else if (fmt.conversion == 's')
+		len = ft_print_string(&fmt, va_arg(ap, char *));
 	else
 	{
 
