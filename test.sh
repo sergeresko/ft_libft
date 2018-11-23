@@ -1,1 +1,1 @@
-gcc -Wall -Wextra -Werror *.c -L ./libft -I ./libft -lft
+gcc -Wall -Wextra -Werror main.c -L. -lftprintf

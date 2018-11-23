@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 13:37:22 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/22 19:08:27 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/23 19:27:38 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,8 @@ t_list			*ft_lstmapi(t_list *lst,
 size_t			ft_lstlen(t_list *lst);
 
 t_list			*ft_strsplit_lst(char const *s, char c);
+
+int				ft_min(int a, int b);
+int				ft_max(int a, int b);
 
 #endif

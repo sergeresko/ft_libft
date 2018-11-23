@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/23 14:52:25 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/22 20:40:50 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/23 19:28:03 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC = \
 	ft_lstnew.c \
 	ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_striteri.c \
 	ft_lstmap.c ft_strmapi.c \
-	ft_lstlen.c
+	ft_lstlen.c \
+	ft_min.c ft_max.c
 
 all: ${NAME}
 
