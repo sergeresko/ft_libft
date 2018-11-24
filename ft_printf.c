@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/23 21:17:59 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 13:02:56 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 		len = ft_print_character(&fmt, (char)va_arg(ap, int));
 	else if (fmt.conv == 's')
 		len = ft_print_string(&fmt, va_arg(ap, char *));
-	else if (fmt.conv == 'o')
+	else if (fmt.conv == 'o' || fmt.conv == 'x' || fmt.conv == 'X')
 	{
 		unsigned long long	num;
 
@@ -85,7 +85,10 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 			num = va_arg(ap, unsigned long long);
 		else
 			num = va_arg(ap, unsigned);
-		len = ft_print_octal(&fmt, num);
+		if (fmt.conv == 'o')
+			len = ft_print_octal(&fmt, num);
+		else		// if 'x' or 'X'
+			len = ft_print_hexadecimal(&fmt, num);
 	}
 	else {
 
@@ -109,7 +112,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	if (fmt.prec == -1)
 		ft_putstr("NONE");
 	else
-		ft_putnbr(fmt.precision);
+		ft_putnbr(fmt.prec);
 	ft_putstr(";\n    modifier:   ");
 	if (fmt.mod == MOD_HH)
 		ft_putstr("hh");

@@ -1,63 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_octal.c                                      :+:      :+:    :+:   */
+/*   print_hexadecimal.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 20:18:30 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 12:55:47 by syeresko         ###   ########.fr       */
+/*   Created: 2018/11/24 12:32:19 by syeresko          #+#    #+#             */
+/*   Updated: 2018/11/24 12:58:22 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
 
-#include <unistd.h>		// for write in ft_print_octal
+#include <unistd.h>		// for write in ft_print_hexadecimal
 
 
 
-char	*ft_octal_s(unsigned long long num)
+static char	*ft_hexadecimal_s(const t_fmt *f, unsigned long long num)
 {
 	char	*s;
+	char	digit;
+	char	letter_a;
 
+	letter_a = (f->conv == 'x') ? 'a' : 'A';
 	s = PF_BUF_END;
 	*s = '\0';
 	while (num)
 	{
-		*(--s) = '0' + (num & 7);
-		num >>= 3;
+		digit = num & 15;
+		*(--s) = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
+		num >>= 4;
 	}
 	return (s);
 }
 
-static int	count_zeroes_o(const t_fmt *f, int n_digits)
+static int	count_zeroes_x(const t_fmt *f, int n_prefix, int n_digits)
 {
-	int		min_zeroes;
-
-	min_zeroes = (f->alt == 1);
 	if (f->prec >= 0)
-		return (ft_max(min_zeroes, f->prec - n_digits));
+		return (ft_max(0, f->prec - n_digits));
 	if (f->zero && !f->left)
-		return (ft_max(min_zeroes, f->width - n_digits));
-	return (ft_max(min_zeroes, (n_digits == 0)));
-//	return ((n_digits == 0) ? 1 : min_zeroes);
+		return (ft_max(0, f->width - n_prefix - n_digits));
+	return (n_digits == 0);
 }
 
-int			ft_print_octal(const t_fmt *f, unsigned long long num)
+int		ft_print_hexadecimal(const t_fmt *f, unsigned long long num)
 {
 	char	*s;
+	int		n_prefix;
 	int		n_zeroes;
 	int		n_digits;
 	int		val_len;
 
-	s = ft_octal_s(num);
+	s = ft_hexadecimal_s(f, num);
+	n_prefix = (num != 0 && f->alt == 1) ? 2 : 0;	// = (num && f->alt) ? 2 : 0
 	n_digits = ft_strlen(s);
-	n_zeroes = count_zeroes_o(f, n_digits);
-	val_len = n_zeroes + n_digits;
+	n_zeroes = count_zeroes_x(f, n_prefix, n_digits);
+	val_len = n_prefix + n_zeroes + n_digits;
 
 	if (!f->left && (!f->zero || f->prec >= 0))
 		ft_putnchar(' ', f->width - val_len);
+	if (n_prefix)		// OR:	if (f->alt)
+		write(1, f->conv == 'x' ? "0x" : "0X", 2);
+// OR:	ft_putstr(f->conv == 'x' ? "0x" : "0X");
 	ft_putnchar('0', n_zeroes);
 	write(1, s, n_digits);		//	OR ft_putstr(s);
 	if (f->left)

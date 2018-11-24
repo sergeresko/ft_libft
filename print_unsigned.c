@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 17:05:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/23 17:59:16 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 12:55:30 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 //	TODO: remake
 
-char	*ft_unsigned_s(const t_fmt *a_fmt, unsigned long long num)
+static char	*ft_unsigned_s(const t_fmt *a_fmt, unsigned long long num)
 {
 	char			*s;
 	const char		digits_small[] = "0123456789abcdef";
@@ -47,7 +47,7 @@ char	*ft_unsigned_s(const t_fmt *a_fmt, unsigned long long num)
 	return (s);
 }
 
-int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
+static int	count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
 {
 //	if (a_fmt->precision is given)
 	if (a_fmt->precision >= 0)
@@ -65,7 +65,7 @@ int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
 	return (0);
 }
 
-int		ft_print_unsigned(const t_fmt *a_fmt, unsigned long long num)
+int			ft_print_unsigned(const t_fmt *a_fmt, unsigned long long num)
 {
 	char	*s;
 	int		n_prefix;

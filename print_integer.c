@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 16:51:02 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/23 19:33:51 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 12:55:02 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 
 
-char	*ft_integer_s(long long num)
+static char	*ft_integer_s(long long num)
 {
 	char	*s;
 
@@ -34,7 +34,7 @@ char	*ft_integer_s(long long num)
 	return (s);
 }
 
-int		count_zeroes(const t_fmt *f, int n_sign, int n_digits)
+static int	count_zeroes(const t_fmt *f, int n_sign, int n_digits)
 {
 	/*
 	if (a_fmt->precision >= 0)
@@ -58,7 +58,7 @@ int		count_zeroes(const t_fmt *f, int n_sign, int n_digits)
 	return (n_digits == 0);
 }
 
-int		ft_print_integer(const t_fmt *f, long long num)
+int			ft_print_integer(const t_fmt *f, long long num)
 {
 	char	*s;
 	int		n_sign;

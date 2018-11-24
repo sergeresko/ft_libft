@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/23 21:20:08 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 12:56:36 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,13 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 
 
 
-char	*ft_integer_s(long long num);
-int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits);
-int		ft_print_integer(const t_fmt *a_fmt, long long num);
-
 int		ft_print_character(const t_fmt *a_fmt, char c);
-
 int		ft_print_string(const t_fmt *a_fmt, const char *str);
 
+int		ft_print_integer(const t_fmt *a_fmt, long long num);
+
 int		ft_print_octal(const t_fmt *a_fmt, unsigned long long num);
+int		ft_print_hexadecimal(const t_fmt *a_fmt, unsigned long long num);
 
 
 
