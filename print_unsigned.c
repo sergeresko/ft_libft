@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 17:05:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 12:55:30 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 13:33:28 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 
 //	TODO: remake
-
+/*
 static char	*ft_unsigned_s(const t_fmt *a_fmt, unsigned long long num)
 {
 	char			*s;
@@ -46,25 +46,32 @@ static char	*ft_unsigned_s(const t_fmt *a_fmt, unsigned long long num)
 	}
 	return (s);
 }
+*/
 
-static int	count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits)
+static char	*ft_unsigned_s(unsigned long long num)
 {
-//	if (a_fmt->precision is given)
-	if (a_fmt->precision >= 0)
+	char	*s;
+
+	s = PF_BUF_END;
+	*s = '\0';
+	while (num)
 	{
-		if (a_fmt->precision > n_digits)
-			return (a_fmt->precision - n_digits);
+		*(--s) = '0' + num % 10;
+		num /= 10;
 	}
-	else if (a_fmt->zero_padding && !a_fmt->left_align)
-	{
-		if (a_fmt->width > n_digits)
-			return (a_fmt->width - n_digits - n_sign);
-	}
-	else if (n_digits == 0)
-		return (1);
-	return (0);
+	return (s);
 }
 
+static int	count_zeroes_u(const t_fmt *f, int n_digits)
+{
+	if (f->prec >= 0)
+		return (ft_max(0, f->prec - n_digits));
+	if (f->zero && !f->left)
+		return (ft_max(0, f->width - n_digits));
+	return (n_digits == 0);
+}
+
+/*
 int			ft_print_unsigned(const t_fmt *a_fmt, unsigned long long num)
 {
 	char	*s;
@@ -92,4 +99,26 @@ int			ft_print_unsigned(const t_fmt *a_fmt, unsigned long long num)
 	if (a_fmt->left_align)
 		ft_putnchar(' ', a_fmt->width - val_len);
 	return ((a_fmt->width > val_len) ? a_fmt->width : val_len);
+}
+*/
+
+int			ft_print_unsigned(const t_fmt *f, unsigned long long num)
+{
+	char	*s;
+	int		n_zeroes;
+	int		n_digits;
+	int		val_len;
+
+	s = ft_unsigned_s(num);
+	n_digits = ft_strlen(s);
+	n_zeroes = count_zeroes_u(f, n_digits);
+	val_len = n_zeroes + n_digits;
+
+	if (!f->left && (!f->zero || f->prec >= 0))
+		ft_putnchar(' ', f->width - val_len);
+	ft_putnchar('0', n_zeroes);
+	write(1, s, n_digits);		//	OR ft_putstr(s);
+	if (f->left)
+		ft_putnchar(' ', f->width - val_len);
+	return (ft_max(f->width, val_len));
 }

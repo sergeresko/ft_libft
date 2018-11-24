@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:32:19 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 12:58:22 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 13:05:57 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*ft_hexadecimal_s(const t_fmt *f, unsigned long long num)
 	while (num)
 	{
 		digit = num & 15;
-		*(--s) = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
+		*(--s) = (digit < 10) ? ('0' + digit) : (letter_a + digit - 10);
 		num >>= 4;
 	}
 	return (s);

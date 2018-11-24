@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 13:02:56 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 13:32:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 		len = ft_print_character(&fmt, (char)va_arg(ap, int));
 	else if (fmt.conv == 's')
 		len = ft_print_string(&fmt, va_arg(ap, char *));
-	else if (fmt.conv == 'o' || fmt.conv == 'x' || fmt.conv == 'X')
+	else if (fmt.conv && ft_strchr("uoxX", fmt.conv))
 	{
 		unsigned long long	num;
 
@@ -85,12 +85,15 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 			num = va_arg(ap, unsigned long long);
 		else
 			num = va_arg(ap, unsigned);
-		if (fmt.conv == 'o')
+		if (fmt.conv == 'u')
+			len = ft_print_unsigned(&fmt, num);
+		else if (fmt.conv == 'o')
 			len = ft_print_octal(&fmt, num);
 		else		// if 'x' or 'X'
 			len = ft_print_hexadecimal(&fmt, num);
 	}
-	else {
+	else
+	{
 
 
 
