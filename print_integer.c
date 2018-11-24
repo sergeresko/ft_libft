@@ -18,14 +18,11 @@
 
 
 
-#define INT_BUF_SIZE 1024
-
 char	*ft_integer_s(long long num)
 {
-	static char		buf[INT_BUF_SIZE + 1];
-	char			*s;
+	char	*s;
 
-	s = buf + INT_BUF_SIZE;
+	s = PF_BUF_END;
 	*s = '\0';
 	if (num < 0)
 		num *= -1;	// TODO: -9223372036854775808 is not handled

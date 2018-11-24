@@ -18,18 +18,15 @@
 
 //	TODO: remake
 
-#define UNSIGNED_BUF_SIZE 1024
-
 char	*ft_unsigned_s(const t_fmt *a_fmt, unsigned long long num)
 {
-	static char		buf[UNSIGNED_BUF_SIZE + 1];
 	char			*s;
 	const char		digits_small[] = "0123456789abcdef";
 	const char		digits_capital[] = "0123456789ABCDEF";
 	char			*digits;
 	int				base;
 
-	s = buf + UNSIGNED_BUF_SIZE;
+	s = PF_BUF_END;
 	*s = '\0';
 	if (ft_strchr("bB", a_fmt->conversion))
 		base = 2;

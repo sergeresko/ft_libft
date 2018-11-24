@@ -16,16 +16,12 @@
 #include <unistd.h>		// for write in ft_print_integer
 
 
-//	TODO: remake
-
-#define OCTAL_BUF_SIZE 1024
 
 char	*ft_octal_s(unsigned long long num)
 {
-	static char		buf[OCTAL_BUF_SIZE + 1];
-	char			*s;
+	char	*s;
 
-	s = buf + OCTAL_BUF_SIZE;
+	s = PF_BUF_END;
 	*s = '\0';
 	while (num)
 	{

@@ -51,9 +51,14 @@ typedef struct	s_fmt
 
 
 
-void	ft_print_repeated(char c, int times);
+//void	ft_print_repeated(char c, int times);
 
-//	#define INT_BUF_SIZE 1024
+# define PF_BUF_SIZE 1024
+char	g_pf_buf[PF_BUF_SIZE + 1];
+# define PF_BUF_START g_pf_buf
+# define PF_BUF_END g_pf_buf + PF_BUF_SIZE
+
+
 
 char	*ft_integer_s(long long num);
 int		count_zeroes(const t_fmt *a_fmt, int n_sign, int n_digits);
