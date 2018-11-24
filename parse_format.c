@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 14:57:37 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/22 18:36:46 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/24 17:52:06 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_parse_precision(t_fmt *f, const char **a_str, va_list ap)
 	}
 	else
 		precision = ft_parse_integer(a_str);
-	f->prec = ft_max(0, precision);
+	f->prec = ft_max(0, precision);		//	NO!!!
 }
 
 /*

@@ -1,0 +1,3 @@
+Google `compilation stages` to find out what linking is.
+
+Regarding make file: if only one source file has been changed, your make file must compile only this file, and link the target again. So basically they meant “your makefile must compile your code without unnecessary recompilations”
