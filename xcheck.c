@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 20:35:32 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 21:15:09 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int				res;
 
 void			stop(void)
 {
-	fprintf(stderr, "Available tests:\n");
+	fprintf(stderr, "\e[32mAvailable tests:\e[0m\n");
 	for (int i = 1; i < ARRAY_LEN(g_tests); ++i)
-		fprintf(stderr, "[%d]%s ", i, g_tests[i].name);
+		fprintf(stderr, "\e[32m[%d]\e[0m%s ", i, g_tests[i].name);
 	fprintf(stderr, "\n");
 	exit(1);
 }
