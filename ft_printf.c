@@ -6,12 +6,13 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 20:24:14 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 20:11:53 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include <unistd.h>
+#include <unistd.h>		// needed ?
+#include <inttypes.h>
 #include "libft.h"
 #include "ft_printf.h"
 
@@ -53,7 +54,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	// Test:
 	if (fmt.conv == 'd' || fmt.conv == 'i')
 	{
-		long long int	num;
+		intmax_t	num;
 
 		if (fmt.mod == MOD_HH)
 			num = (char)va_arg(ap, int);
@@ -77,7 +78,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	}
 	else if (fmt.conv && ft_strchr("uoxX", fmt.conv))
 	{
-		unsigned long long	num;
+		uintmax_t	num;
 
 		if (fmt.mod == MOD_HH)
 			num = (unsigned char)va_arg(ap, unsigned);

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 20:20:27 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 20:10:07 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <inttypes.h>
 
 # define	PF_FLAGS		"#0- +\'"
 # define	PF_MODIFIERS	"hlL"
@@ -63,11 +64,11 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 int		ft_print_character(const t_fmt *a_fmt, char c);
 int		ft_print_string(const t_fmt *a_fmt, const char *str);
 
-int		ft_print_integer(const t_fmt *a_fmt, long long num);
+int		ft_print_integer(const t_fmt *a_fmt, intmax_t num);
 
-int		ft_print_octal(const t_fmt *a_fmt, unsigned long long num);
-int		ft_print_hexadecimal(const t_fmt *a_fmt, unsigned long long num);
-int		ft_print_unsigned(const t_fmt *a_fmt, unsigned long long num);
+int		ft_print_octal(const t_fmt *a_fmt, uintmax_t num);
+int		ft_print_hexadecimal(const t_fmt *a_fmt, uintmax_t num);
+int		ft_print_unsigned(const t_fmt *a_fmt, uintmax_t num);
 
 int		ft_print_pointer(const t_fmt *a_fmt, void *ptr);
 

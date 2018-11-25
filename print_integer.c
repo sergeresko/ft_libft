@@ -6,30 +6,35 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 16:51:02 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 12:55:02 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 20:24:49 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
+#include <inttypes.h>
+#include <limits.h>
 
 #include <unistd.h>		// for write in ft_print_integer
 
 
 
 
-static char	*ft_integer_s(long long num)
+static char	*ft_integer_s(intmax_t num)
 {
-	char	*s;
+	uintmax_t	abs;
+	char		*s;
 
 	s = PF_BUF_END;
 	*s = '\0';
-	if (num < 0)
-		num *= -1;	// TODO: -9223372036854775808 is not handled
-	while (num)
+	if (num == LLONG_MIN)
+		abs = (uintmax_t)num;
+	else
+		abs = (uintmax_t)(num < 0 ? -num : num);
+	while (abs)
 	{
-		*(--s) = '0' + num % 10;
-		num /= 10;
+		*(--s) = '0' + abs % 10;
+		abs /= 10;
 	}
 	return (s);
 }
@@ -58,7 +63,7 @@ static int	count_zeroes(const t_fmt *f, int n_sign, int n_digits)
 	return (n_digits == 0);
 }
 
-int			ft_print_integer(const t_fmt *f, long long num)
+int			ft_print_integer(const t_fmt *f, intmax_t num)
 {
 	char	*s;
 	int		n_sign;

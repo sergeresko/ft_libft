@@ -6,18 +6,19 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:18:30 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 12:55:47 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 20:16:11 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
+#include <inttypes.h>
 
 #include <unistd.h>		// for write in ft_print_octal
 
 
 
-char	*ft_octal_s(unsigned long long num)
+char	*ft_octal_s(uintmax_t num)
 {
 	char	*s;
 
@@ -44,7 +45,7 @@ static int	count_zeroes_o(const t_fmt *f, int n_digits)
 //	return ((n_digits == 0) ? 1 : min_zeroes);
 }
 
-int			ft_print_octal(const t_fmt *f, unsigned long long num)
+int			ft_print_octal(const t_fmt *f, uintmax_t num)
 {
 	char	*s;
 	int		n_zeroes;

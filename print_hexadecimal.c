@@ -6,18 +6,19 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:32:19 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 13:05:57 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 20:13:48 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
+#include <inttypes.h>
 
 #include <unistd.h>		// for write in ft_print_hexadecimal
 
 
 
-static char	*ft_hexadecimal_s(const t_fmt *f, unsigned long long num)
+static char	*ft_hexadecimal_s(const t_fmt *f, uintmax_t num)
 {
 	char	*s;
 	char	digit;
@@ -44,7 +45,7 @@ static int	count_zeroes_x(const t_fmt *f, int n_prefix, int n_digits)
 	return (n_digits == 0);
 }
 
-int		ft_print_hexadecimal(const t_fmt *f, unsigned long long num)
+int		ft_print_hexadecimal(const t_fmt *f, uintmax_t num)
 {
 	char	*s;
 	int		n_prefix;
