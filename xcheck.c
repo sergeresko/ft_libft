@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 15:36:07 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 20:35:32 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,15 @@ int				ft_printf(const char *, ...);
 
 int				res;
 
-#define TEST(name) void name(t_func f)
-
-#define T(name) {#name, name}
-
-#define PF(...)							\
-	f("\e[31m(%s)\e[0m", #__VA_ARGS__);	\
-	res = f(__VA_ARGS__);				\
+#define TEST(name)			void name(t_func f)
+#define T(name)				{#name, name}
+#define PF(...)									\
+	f("\e[31m(%s)\e[0m", #__VA_ARGS__);			\
+	res = f(__VA_ARGS__);						\
 	f("\e[31m(%d)\e[0m\n", res);
-
-#define ARRAY_LEN(array) sizeof(array) / sizeof(*array)
-
-#define FOREACH(x,array) for (int x = 0; x < ARRAY_LEN(array); ++x)
-
-#define ALL_TESTS(...) t_pair g_tests[] = {{NULL, NULL}, __VA_ARGS__};
+#define ARRAY_LEN(array)	sizeof(array) / sizeof(*array)
+#define FOREACH(x,array)	for (int x = 0; x < ARRAY_LEN(array); ++x)
+#define ALL_TESTS(...)		t_pair g_tests[] = {{NULL, NULL}, __VA_ARGS__};
 
 #include "xtests.h"
 
@@ -55,8 +50,8 @@ void			stop(void)
 
 int				main(int argc, char **argv)
 {
-	t_func	f;
-	int		i;
+	t_func		f;
+	int			i;
 	
 	if (argc != 3)
 		stop();
@@ -76,7 +71,7 @@ int				main(int argc, char **argv)
 				break ;
 		}
 	}
-	if (1 <= i && i < ARRAY_LEN(g_tests))
+	if (0 < i && i < ARRAY_LEN(g_tests))
 		g_tests[i].address(f);
 	else
 		stop();
