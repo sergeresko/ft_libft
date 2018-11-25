@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 21:15:09 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 21:21:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				ft_printf(const char *, ...);
 int				res;
 
 #define TEST(name)			void name(t_func f)
-#define T(name)				{#name, name}
+#define T(name)				{#name, name},
 #define PF(...)									\
 	f("\e[31m(%s)\e[0m", #__VA_ARGS__);			\
 	res = f(__VA_ARGS__);						\

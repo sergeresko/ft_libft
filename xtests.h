@@ -146,6 +146,29 @@ TEST(s1)		/* examples from the book (p. 397) */
 	PF("%-12s", NULL)
 }
 
+TEST(f1)		/* examples from the book (p. 398) */
+{
+	PF("%f", 12.678)
+	PF("%10.2f", 12.678)
+	PF("%010.2f", 12.678)
+	PF("% 010.2f", 12.678)
+	PF("%+10.2f", 12.678)
+	PF("%+010.2f", 12.678)
+	PF("%-10.2f", 12.678)
+	PF("%- 10.2f", 12.678)
+	PF("%-+10.4f", 12.678)
+
+	PF("%f", -12.678)
+	PF("%10.2f", -12.678)
+	PF("%010.2f", -12.678)
+	PF("% 010.2f", -12.678)
+	PF("%+10.2f", -12.678)
+	PF("%+010.2f", -12.678)
+	PF("%-10.2f", -12.678)
+	PF("%- 10.2f", -12.678)
+	PF("%-+10.4f", -12.678)
+}
+
 TEST(o1)		/* octal without '#' */
 {
 	unsigned long long	val[] = {
@@ -284,21 +307,20 @@ TEST(dneg)		/* negative integer */
 */
 
 ALL_TESTS(
-	T(d42),
-	T(dm42),
-	T(u42),
-	T(um42),
-	T(o42),
-	T(om42),
-	T(x42),
-	T(xm42),
-	T(c1),
-	T(s1),
-	T(o1),
-	T(o2),
-	T(test03),
-	T(p1),
-	T(dneg),
+	/* examples from the book */
+	T(d42) T(dm42)
+	T(u42) T(um42)
+	T(o42) T(om42)
+	T(x42) T(xm42)
+	T(c1)
+	T(s1)
+	T(f1)
+	/* other tests */
+	T(o1)
+	T(o2)
+	T(test03)
+	T(p1)
+	T(dneg)
 
 /*
 **	Add the names of your test here.
