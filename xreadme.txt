@@ -6,9 +6,14 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/25 14:40:54 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/25 15:02:31 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+It may be necessary to run
+	"chmod +x xmake"
+	"chmod +x x"
+at first.
 
 /-------------------------------\
 |	...							|
@@ -25,7 +30,7 @@
 |		(your library)			|
 |	xcheck.c					|
 |		(don't touch this)		|
-|	xtests.h					|
+|	xtests.h					|	<----	tests are here
 |		(tests you can expand)	|
 \-------------------------------/
 				|

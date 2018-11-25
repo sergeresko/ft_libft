@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 14:27:51 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 15:36:07 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ int				ft_printf(const char *, ...);
 
 int				res;
 
-void			stop(void)
-{
-	fprintf(stderr, "?\n");
-	printf("Error\n");
-	exit(1);
-}
-
 #define TEST(name) void name(t_func f)
 
 #define T(name) {#name, name}
@@ -50,6 +43,15 @@ void			stop(void)
 #define ALL_TESTS(...) t_pair g_tests[] = {{NULL, NULL}, __VA_ARGS__};
 
 #include "xtests.h"
+
+void			stop(void)
+{
+	fprintf(stderr, "Available tests:\n");
+	for (int i = 1; i < ARRAY_LEN(g_tests); ++i)
+		fprintf(stderr, "[%d]%s ", i, g_tests[i].name);
+	fprintf(stderr, "\n");
+	exit(1);
+}
 
 int				main(int argc, char **argv)
 {
