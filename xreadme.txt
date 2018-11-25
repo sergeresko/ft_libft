@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/25 15:02:31 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/25 17:05:30 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ at first.
 |		(compiled tests)		|
 \-------------------------------/
 				|
+				|		"./x"
+				|			(run this to see the list of all tests)
 				|		"./x test_name" OR "./x test_number"
 				|			(run this to see the diff for a particular test)
 				V
