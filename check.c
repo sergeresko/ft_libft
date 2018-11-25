@@ -6,35 +6,45 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 21:12:47 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/25 13:40:13 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+int		res;
+
+#define TEST(name) void name(t_func f)
+
+#define T(name) {#name, name}
 
 #define PF(...)							\
-	n = f(__VA_ARGS__);					\
-	f("\e[31m(%d)\e[0m\n", n);
+	f("\e[31m(%s)\e[0m", #__VA_ARGS__);	\
+	res = f(__VA_ARGS__);				\
+	f("\e[31m(%d)\e[0m\n", res);
 
-#define FOREACH(i,values)				\
-	for (int i = 0; i < sizeof(values) / sizeof(values[0]); ++i)
+#define ARRAY_LEN(array) sizeof(array) / sizeof(*array)
+
+#define FOREACH(x,array) for (int x = 0; x < ARRAY_LEN(array); ++x)
 
 typedef int		(*t_func)(const char *, ...);
 typedef void	(*t_test)(t_func);
-
-void	test00(t_func f)
+typedef struct	s_pair
 {
-	int		n;
+	char	*name;
+	t_test	address;
+}				t_pair;
 
+TEST(test00)
+{
 	PF("%d", 42)
 }
 
-void	test01(t_func f)	/* octal without '#' */
+TEST(test01)	/* octal without '#' */
 {
-	int		n;
-
 	unsigned long long	values[] = {
 		0,
 		3,
@@ -52,10 +62,8 @@ void	test01(t_func f)	/* octal without '#' */
 	}
 }
 
-void	test02(t_func f)	/* octal with '#' */
+TEST(test02)	/* octal with '#' */
 {
-	int		n;
-	
 	unsigned long long	values[] = {
 		0,
 		3,
@@ -73,19 +81,15 @@ void	test02(t_func f)	/* octal with '#' */
 	}
 }
 
-void	test03(t_func f)
+TEST(test03)
 {
-	int		n;
-
 	PF("%10.*d", -5, 42)
 
 	PF("%10.*s", -5, "abc")
 }
 
-void	test04(t_func f)	/* pointers */
+TEST(test04)	/* pointers */
 {
-	int		n;
-
 	PF("%p", NULL)
 	PF("%10p", NULL)
 	PF("%.7p", NULL)
@@ -102,10 +106,8 @@ void	test04(t_func f)	/* pointers */
 	PF("%p", (void *)0x1a2b3c4d5e6f)
 }
 
-void	test05(t_func f)
+TEST(test05)
 {
-	int		n;
-
 	PF("%d", -12345678)
 	PF("%7d", -12345678)
 	PF("%8d", -12345678)
@@ -170,18 +172,20 @@ void	test05(t_func f)
 	PF("%20.10d", -12345678)
 }
 
-t_test	g_tests[] =
+t_pair	g_tests[] =
 {
-	test00,
-	test01,
-	test02,
-	test03,
-	test04,
-	test05,
+	{NULL, NULL},
+	T(test00),
+	T(test01),
+	T(test02),
+	T(test03),
+	T(test04),
+	T(test05),
 };
 
 void	stop(void)
 {
+	fprintf(stderr, "?\n");
 	printf("Error\n");
 	exit(1);
 }
@@ -201,8 +205,16 @@ int		main(int argc, char **argv)
 	else
 		stop();
 	i = atoi(argv[2]);
-	if (0 <= i && i < sizeof(g_tests) / sizeof(t_test))
-		g_tests[i](f);
+	if (i == 0)
+	{
+		for (i = 1; i < ARRAY_LEN(g_tests); ++i)
+		{
+			if (strcmp(argv[2], g_tests[i].name) == 0)
+				break ;
+		}
+	}
+	if (1 <= i && i < ARRAY_LEN(g_tests))
+		g_tests[i].address(f);
 	else
 		stop();
 	return (0);
