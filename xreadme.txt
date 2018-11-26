@@ -6,14 +6,24 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/26 14:20:12 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/26 16:16:06 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-It may be necessary to run
+
+PREPARATION
+
+Copy the files from this directory to the root of your ft_printf repository.
+The names of all these files start with letter 'x' for convenience, so that
+they hopefully don't mix with your own files.
+
+To let the shell scripts be executed without prepending "sh" each time, run
 	"chmod +x xmake"
 	"chmod +x x"
-at first.
+
+
+
+GENERAL USAGE
 
 /-------------------------------\
 |	...							|
@@ -23,7 +33,8 @@ at first.
 \-------------------------------/
 				|
 				|		"make" OR "make re"
-				|			(run this if you have modified your source files)
+				|			(run this if you need to rebuild your library,
+				|			for example, if you have modified your source files)
 				V
 /-------------------------------\
 |	libftprintf.a				|
@@ -57,10 +68,19 @@ at first.
 |	xout_libc.txt				|
 |		(printf output)			|
 \-------------------------------/
-				|
-				|		"cat xout_ft.txt" OR "cat xout_libc.txt"
-				|			(run this to see the whole output file)
-				V
+
+If you don't want to compare your ft_printf with printf, but only want to see
+the output produced by either of these functions, you may run
+	"./xcheck 1 PARAMETER" (for ft_printf)
+	OR
+	"./xcheck 2 PARAMETER" (for printf)
+where PARAMETER is the same as for "./x" described above.
+Alternatively, you may run
+	"./x PARAMETER"
+and then
+	"cat xout_ft.txt"
+	OR
+	"cat xout_libc.txt" 
 
 
 
@@ -89,3 +109,41 @@ Good test names are, for example:
 Bad test names are, for example:
 	test001
 	qweqweqwe
+
+
+
+TEST SYNTAX
+
+All tests reside in a text file named "xtests.h" and are written in the form
+of macros. You are encouraged to add your own tests to that file.
+
+There are five macros: PF, TEST, TEST_ITER, ALL_TESTS, and T.
+
+If you examine "xtests.h" and look at the ouput files, you'll easily figure out
+what these macros do and how to use them.
+
+Test names are indicated as the argument of TEST macro or as the first argument
+of TEST_ITER macro. For example, the following two tests do completely the same
+thing:
+
+1.	TEST(name)
+	{
+		PF("It %s an example", "is")
+		PF("It %s an example", "could be")
+		PF("It %s an example", "won't count as")
+		PF("It %.2s an example", "is")
+		PF("It %.2s an example", "could be")
+		PF("It %.2s an example", "won't count as")
+	}
+
+2.	#define _name(x)\
+		PF("It %s and example", x)\
+		PF("It %.2s an example", x)
+	TEST_ITER(name, "is", "could be", "won't count as")
+
+NOTE 1:	There is NO SEMICOLON (;) after a PF call.
+NOTE 2:	There is NO BACKSLASH (\) in the last line of #define.
+NOTE 3:	The name in #define must be the same as in the first argument of the
+		following TEST_ITER, but with an underscore at the beginning.
+NOTE 4:	If you add your own tests, don't forget to list their names in ALL_TESTS
+		at the end of file.
