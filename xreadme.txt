@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/26 16:16:06 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/26 16:31:28 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ PREPARATION
 Copy the files from this directory to the root of your ft_printf repository.
 The names of all these files start with letter 'x' for convenience, so that
 they hopefully don't mix with your own files.
+Alternatively, if you want to keep them in a seperate directory, open the file
+"xmake" with a text editor and specify the path to your "libftprintf.a" there.
 
 To let the shell scripts be executed without prepending "sh" each time, run
 	"chmod +x xmake"
@@ -41,7 +43,7 @@ GENERAL USAGE
 |		(your library)			|
 |	xcheck.c					|
 |		(don't touch this)		|
-|	xtests.h					|	<----	tests are here
+|	xtests.h					|	<----	TESTS ARE HERE
 |		(tests you can expand)	|
 \-------------------------------/
 				|
@@ -87,21 +89,21 @@ and then
 TEST NAMING CONVENTION
 
 The name of a test is composed of the following parts in succession:
-1.	a capital letter B, H, U, X
+1.	a capital letter B, H, U, X, or M
 		B means a BASIC test: ft_printf must work exactly as printf.
 		H means a HARD test: even if output is different, one can forgive this.
 		U means a test where printf has UNDEFINED BEHAVIOR.
 		X means an EXTRA test for bonus features not required in the subject.
 		M means a MIXED test comprising miscellaneous test cases.
 2.	1)	either one of the letters d, i, o, u, x, X, s, c, p, f, ...
-		(if the test is designed for a speific convertion)
+		(if the test is designed for a speific conversion)
 	2)	or an underscore (_)
-		(if the test doesn't have a conversion or has different convertions)
+		(if the test doesn't have a conversion or has different conversions)
 3.	an arbitrary sequence of alphanumeric characters
 
 Good test names are, for example:
 	B_percent	(a basic test for "%%" conversion)
-	Hf_e150		(a hard test for "%f" that tests the number 10^150)
+	Hf_1e150	(a hard test for "%f" that tests the number 10^150)
 	U_two_stars	(a test for "%**", which is undefined by the standard)
 	Xs_wide		(an extra test for "%ls")
 	M_syeresko	(a test with various stuff by <syeresko>)
@@ -119,8 +121,8 @@ of macros. You are encouraged to add your own tests to that file.
 
 There are five macros: PF, TEST, TEST_ITER, ALL_TESTS, and T.
 
-If you examine "xtests.h" and look at the ouput files, you'll easily figure out
-what these macros do and how to use them.
+If you examine "xtests.h" and look at the output files, you'll easily figure
+out what these macros do and how to use them.
 
 Test names are indicated as the argument of TEST macro or as the first argument
 of TEST_ITER macro. For example, the following two tests do completely the same
@@ -143,7 +145,11 @@ thing:
 
 NOTE 1:	There is NO SEMICOLON (;) after a PF call.
 NOTE 2:	There is NO BACKSLASH (\) in the last line of #define.
-NOTE 3:	The name in #define must be the same as in the first argument of the
+NOTE 3:	The name in #define must be the same as the first argument of the
 		following TEST_ITER, but with an underscore at the beginning.
-NOTE 4:	If you add your own tests, don't forget to list their names in ALL_TESTS
+NOTE 4:	If you add your tests, don't forget to list their names in ALL_TESTS
 		at the end of file.
+
+
+
+GOOD LUCK!
