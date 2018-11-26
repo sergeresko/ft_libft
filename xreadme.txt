@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/26 13:33:17 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/26 14:20:12 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,9 @@ at first.
 				|			(run this to see the list of all tests)
 				|		"./x test_name" OR "./x test_number"
 				|			(run this to see the diff for a particular test)
+				|		"./x -prefix"
+				|			(run this to see the diff for all tests whose names
+				|			start with a particular prefix, e.g. "./x -Bu")
 				V
 /-------------------------------\
 |	xout_ft.txt					|
@@ -69,6 +72,7 @@ The name of a test is composed of the following parts in succession:
 		H means a HARD test: even if output is different, one can forgive this.
 		U means a test where printf has UNDEFINED BEHAVIOR.
 		X means an EXTRA test for bonus features not required in the subject.
+		M means a MIXED test comprising miscellaneous test cases.
 2.	1)	either one of the letters d, i, o, u, x, X, s, c, p, f, ...
 		(if the test is designed for a speific convertion)
 	2)	or an underscore (_)
@@ -76,11 +80,11 @@ The name of a test is composed of the following parts in succession:
 3.	an arbitrary sequence of alphanumeric characters
 
 Good test names are, for example:
-	Bd_syeresko	(a basic test for "%d" by <syeresko>)
 	B_percent	(a basic test for "%%" conversion)
 	Hf_e150		(a hard test for "%f" that tests the number 10^150)
 	U_two_stars	(a test for "%**", which is undefined by the standard)
 	Xs_wide		(an extra test for "%ls")
+	M_syeresko	(a test with various stuff by <syeresko>)
 
 Bad test names are, for example:
 	test001

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 21:21:27 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/26 14:12:26 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,11 @@
 */
 
 #define EVAL0(...)	__VA_ARGS__
-#define EVAL1(...)	EVAL0(EVAL0(__VA_ARGS__))
-#define EVAL2(...)	EVAL1(EVAL1(__VA_ARGS__))
-#define EVAL(...)	EVAL2(EVAL2(__VA_ARGS__))
-//#define EVAL0(...) __VA_ARGS__
-//#define EVAL1(...) EVAL0(EVAL0(EVAL0(__VA_ARGS__)))
-//#define EVAL2(...) EVAL1(EVAL1(EVAL1(__VA_ARGS__)))
-//#define EVAL3(...) EVAL2(EVAL2(EVAL2(__VA_ARGS__)))
-//#define EVAL4(...) EVAL3(EVAL3(EVAL3(__VA_ARGS__)))
-//#define EVAL(...)  EVAL4(EVAL4(EVAL4(__VA_ARGS__)))
+#define EVAL1(...)	EVAL0(EVAL0(EVAL0(__VA_ARGS__)))
+#define EVAL2(...)	EVAL1(EVAL1(EVAL1(__VA_ARGS__)))
+#define EVAL3(...)	EVAL2(EVAL2(EVAL2(__VA_ARGS__)))
+#define EVAL4(...)	EVAL3(EVAL3(EVAL3(__VA_ARGS__)))
+#define EVAL(...)	EVAL4(EVAL4(EVAL4(__VA_ARGS__)))
 #define MAP_END(...)
 #define MAP_OUT
 #define MAP_GET_END2()		0, MAP_END
@@ -64,14 +60,21 @@ int				res;
 #define TEST_ITER(name,...) TEST(name){MAP(_##name,__VA_ARGS__)}
 #define T(name)				{#name, name},
 #define ALL_TESTS(...)		t_pair g_tests[] = {{NULL, NULL}, __VA_ARGS__};
-#define LEN(array)			(sizeof(array) / sizeof(*array))
+#define TESTS_NUM			(sizeof(g_tests) / sizeof(*g_tests))
+#define TEST_NAME(index)	(g_tests[index].name)
+#define TEST_FUNC(index)	(g_tests[index].address)
 
 #include "xtests.h"
+
+int				prefix(const char *pre, const char *str)
+{
+	return (strncmp(pre, str, strlen(pre)) == 0);
+}
 
 void			stop(void)
 {
 	fprintf(stderr, "\e[32mAvailable tests:\e[0m\n");
-	for (int i = 1; i < LEN(g_tests); ++i)
+	for (int i = 1; i < TESTS_NUM; ++i)
 		fprintf(stderr, "\e[32m[%d]\e[0m%s ", i, g_tests[i].name);
 	fprintf(stderr, "\n");
 	exit(1);
@@ -91,17 +94,22 @@ int				main(int argc, char **argv)
 		f = printf;
 	else
 		stop();
+	if (argv[2][0] == '-')
+	{
+		for (i = 1; i < TESTS_NUM; ++i)
+			if (prefix(argv[2] + 1, TEST_NAME(i)))
+				TEST_FUNC(i)(f);
+		return (0);
+	}
 	i = atoi(argv[2]);
 	if (i == 0)
 	{
-		for (i = 1; i < LEN(g_tests); ++i)
-		{
-			if (strcmp(argv[2], g_tests[i].name) == 0)
+		for (i = 1; i < TESTS_NUM; ++i)
+			if (strcmp(argv[2], TEST_NAME(i)) == 0)
 				break ;
-		}
 	}
-	if (0 < i && i < LEN(g_tests))
-		g_tests[i].address(f);
+	if (0 < i && i < TESTS_NUM)
+		TEST_FUNC(i)(f);
 	else
 		stop();
 	return (0);
