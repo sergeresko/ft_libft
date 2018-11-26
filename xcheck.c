@@ -53,11 +53,13 @@ int				ft_printf(const char *, ...);
 int				res;
 
 #define PF(...)\
-	f("\e[31m(%s)\e[0m", #__VA_ARGS__);\
+	printf("\e[31m(%s)\e[0m", #__VA_ARGS__);\
+	fflush(stdout);\
 	res = f(__VA_ARGS__);\
-	f("\e[31m(%d)\e[0m\n", res);
-#define TEST(name)			void name(t_func f)
-#define TEST_ITER(name,...) TEST(name){MAP(_##name,__VA_ARGS__)}
+	printf("\e[31m(%d)\e[0m\n", res);
+#define TEST(name)			void name(t_func f) {
+#define END					}
+#define TEST_ITER(name,...) TEST(name) { MAP(_##name, __VA_ARGS__) }
 #define T(name)				{#name, name},
 #define ALL_TESTS(...)		t_pair g_tests[] = {{NULL, NULL}, __VA_ARGS__};
 #define TESTS_NUM			(sizeof(g_tests) / sizeof(*g_tests))

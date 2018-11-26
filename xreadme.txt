@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-PREPARATION
+=== PREPARATION ===
 
 Copy the files from this directory to the root of your ft_printf repository.
 The names of all these files start with letter 'x' for convenience, so that
@@ -25,7 +25,7 @@ To let the shell scripts be executed without prepending "sh" each time, run
 
 
 
-GENERAL USAGE
+=== GENERAL USAGE ===
 
 /-------------------------------\
 |	...							|
@@ -42,7 +42,7 @@ GENERAL USAGE
 |	libftprintf.a				|
 |		(your library)			|
 |	xcheck.c					|
-|		(don't touch this)		|
+|		(don't touch this file)	|
 |	xtests.h					|	<----	TESTS ARE HERE
 |		(tests you can expand)	|
 \-------------------------------/
@@ -58,25 +58,28 @@ GENERAL USAGE
 				|
 				|		"./x"
 				|			(run this to see the list of all tests)
-				|		"./x test_name" OR "./x test_number"
+				|		"./x TEST_NAME" OR "./x TEST_NUMBER"
 				|			(run this to see the diff for a particular test)
-				|		"./x -prefix"
+				|		"./x -PREFIX"
 				|			(run this to see the diff for all tests whose names
 				|			start with a particular prefix, e.g. "./x -Bu")
 				V
 /-------------------------------\
 |	xout_ft.txt					|
-|		(ft_printf output)		|
+|		(ft_printf's output)	|
 |	xout_libc.txt				|
-|		(printf output)			|
+|		(printf's output)		|
 \-------------------------------/
 
-If you don't want to compare your ft_printf with printf, but only want to see
+Since "./x PARAMETER" displays a diff, if nothing appears on the screen, it
+means that your ft_printf has successfully passed a test.
+
+If you don't want to compare your ft_printf with printf, but just want to see
 the output produced by either of these functions, you may run
 	"./xcheck 1 PARAMETER" (for ft_printf)
 	OR
 	"./xcheck 2 PARAMETER" (for printf)
-where PARAMETER is the same as for "./x" described above.
+where PARAMETER is the same as for "./x PARAMETER" described above.
 Alternatively, you may run
 	"./x PARAMETER"
 and then
@@ -86,9 +89,9 @@ and then
 
 
 
-TEST NAMING CONVENTION
+=== TEST NAMING CONVENTION ===
 
-The name of a test is composed of the following parts in succession:
+The name of a test is composed of the following three parts in succession:
 1.	a capital letter B, H, U, X, or M
 		B means a BASIC test: ft_printf must work exactly as printf.
 		H means a HARD test: even if output is different, one can forgive this.
@@ -98,7 +101,7 @@ The name of a test is composed of the following parts in succession:
 2.	1)	either one of the letters d, i, o, u, x, X, s, c, p, f, ...
 		(if the test is designed for a speific conversion)
 	2)	or an underscore (_)
-		(if the test doesn't have a conversion or has different conversions)
+		(if the test doesn't involve a conversion or has different conversions)
 3.	an arbitrary sequence of alphanumeric characters
 
 Good test names are, for example:
@@ -112,44 +115,47 @@ Bad test names are, for example:
 	test001
 	qweqweqwe
 
+This naming strategy allows, for example, to invoke all basic tests by running
+"./x -B" or all tests for "%e" conversion by running "./x -Xe". You might have
+already guessed that "./x -" would execute all available tests.
 
 
-TEST SYNTAX
+
+=== TEST SYNTAX ===
 
 All tests reside in a text file named "xtests.h" and are written in the form
-of macros. You are encouraged to add your own tests to that file.
+of macros. You're encouraged to add your own tests to that file.
 
-There are five macros: PF, TEST, TEST_ITER, ALL_TESTS, and T.
-
-If you examine "xtests.h" and look at the output files, you'll easily figure
+There are six macros: PF, TEST, END, TEST_ITER, ALL_TESTS, and T. If you
+examine "xtests.h" and have a look at the output files, you'll easily figure
 out what these macros do and how to use them.
 
-Test names are indicated as the argument of TEST macro or as the first argument
-of TEST_ITER macro. For example, the following two tests do completely the same
-thing:
+There are two kinds of tests: a plain test (TEST) and an iterative test
+(TEST_ITER). The names of the tests are indicated as the argument of a TEST
+macro or as the first argument of a TEST_ITER macro. For example, the following
+two tests virtually do the same thing:
 
 1.	TEST(name)
-	{
-		PF("It %s an example", "is")
-		PF("It %s an example", "could be")
-		PF("It %s an example", "won't count as")
-		PF("It %.2s an example", "is")
-		PF("It %.2s an example", "could be")
-		PF("It %.2s an example", "won't count as")
-	}
+		PF("It %s an %s", "is", "example")
+		PF("It %s an %s", "could be", "example")
+		PF("It %s an %s", "won't count as", "example")
+		PF("It %-6s an %.2s", "is", "example")
+		PF("It %-6s an %.2s", "could be", "example")
+		PF("It %-6s an %.2s", "won't count as", "example")
+	END
 
 2.	#define _name(x)\
-		PF("It %s and example", x)\
-		PF("It %.2s an example", x)
+		PF("It %s an %s", x, "example")\
+		PF("It %-6s an %.2s", x, "example")
 	TEST_ITER(name, "is", "could be", "won't count as")
 
-NOTE 1:	There is NO SEMICOLON (;) after a PF call.
-NOTE 2:	There is NO BACKSLASH (\) in the last line of #define.
-NOTE 3:	The name in #define must be the same as the first argument of the
+NOTE 1:	There is NO SEMICOLON ';' after a PF call.
+NOTE 2:	There is NO BACKSLASH '\' in the last line of a #define.
+NOTE 3:	The name in a #define must be the same as the first argument of the
 		following TEST_ITER, but with an underscore at the beginning.
 NOTE 4:	If you add your tests, don't forget to list their names in ALL_TESTS
-		at the end of file.
+		at the end of the file in the format T(name).
 
 
 
-GOOD LUCK!
+=== GOOD LUCK! ===

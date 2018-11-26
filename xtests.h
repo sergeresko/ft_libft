@@ -62,12 +62,11 @@ TEST_ITER(Bx_book, 42, -42)
 
 /* examples from the book (p. 396) */
 TEST(Bc_book)
-{
 	PF("%c", '@')
 	PF("%12c", '@')
 	PF("%012c", '@')
 	PF("%-12c", '@')
-}
+END
 
 /* examples from the book (p. 397) */
 #define _Bs_book(s)\
@@ -113,10 +112,9 @@ TEST_ITER(Bo_sharp, 0, 3, 19, 73, 100)
 
 /* precision passed through '*' */
 TEST(X_prec_star)
-{
 	PF("%10.*d", -5, 42)
 	PF("%10.*s", -5, "abc")
-}
+END
 
 /* pointers */
 #define _Bp(p)\
@@ -134,7 +132,6 @@ TEST_ITER(Bp, NULL, ((void *)0x4242), ((void *)0x1a2b3c4d5e6f))
 
 /* negative number */
 TEST(Bd_negative)
-{
 	PF("%d", -12345678)
 	PF("%7d", -12345678)
 	PF("%8d", -12345678)
@@ -197,7 +194,7 @@ TEST(Bd_negative)
 	PF("%9.10d", -12345678)
 	PF("%10.10d", -12345678)
 	PF("%20.10d", -12345678)
-}
+END
 
 /*
 **	Add your tests here.
