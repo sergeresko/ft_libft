@@ -4,7 +4,7 @@
 */
 
 /* examples from the book (p. 394) */
-#define _d1(n)\
+#define _Bd_book(n)\
 	PF("%d", n)\
 	PF("%12d", n)\
 	PF("%012d", n)\
@@ -16,10 +16,10 @@
 	PF("%-+12d", n)\
 	PF("%12.4d", n)\
 	PF("%-12.4d", n)
-TEST_ITER(d1, 42, -42)
+TEST_ITER(Bd_book, 42, -42)
 
 /* examples from the book (p. 394) */
-#define _u1(n)\
+#define _Bu_book(n)\
 	PF("%u", n)\
 	PF("%14u", n)\
 	PF("%014u", n)\
@@ -30,10 +30,10 @@ TEST_ITER(d1, 42, -42)
 	PF("%14.4u", n)\
 	PF("%-14.4u", n)\
 	PF("%-#14.4u", n)
-TEST_ITER(u1, 42, -42)
+TEST_ITER(Bu_book, 42, -42)
 
 /* examples from the book (p. 395) */
-#define _o1(n)\
+#define _Bo_book(n)\
 	PF("%o", n)\
 	PF("%14o", n)\
 	PF("%014o", n)\
@@ -44,10 +44,10 @@ TEST_ITER(u1, 42, -42)
 	PF("%14.4o", n)\
 	PF("%-14.4o", n)\
 	PF("%-#14.4o", n)
-TEST_ITER(o1, 42, -42)
+TEST_ITER(Bo_book, 42, -42)
 
 /* examples from the book (p. 395) */
-#define _x1(n)\
+#define _Bx_book(n)\
 	PF("%x", n)\
 	PF("%14x", n)\
 	PF("%014x", n)\
@@ -58,10 +58,10 @@ TEST_ITER(o1, 42, -42)
 	PF("%14.4x", n)\
 	PF("%-14.4x", n)\
 	PF("%-#14.4x", n)
-TEST_ITER(x1, 42, -42)
+TEST_ITER(Bx_book, 42, -42)
 
 /* examples from the book (p. 396) */
-TEST(c1)
+TEST(Bc_book)
 {
 	PF("%c", '@')
 	PF("%12c", '@')
@@ -70,16 +70,16 @@ TEST(c1)
 }
 
 /* examples from the book (p. 397) */
-#define _s1(s)\
+#define _Bs_book(s)\
 	PF("%s", s)\
 	PF("%12s", s)\
 	PF("%12.5s", s)\
 	PF("%012s", s)\
 	PF("%-12s", s)
-TEST_ITER(s1, "zap", "longish", NULL)
+TEST_ITER(Bs_book, "zap", "longish", NULL)
 
 /* examples from the book (p. 398) */
-#define _f1(x)\
+#define _Bf_book(x)\
 	PF("%f", x)\
 	PF("%10.2f", x)\
 	PF("%010.2f", x)\
@@ -89,37 +89,37 @@ TEST_ITER(s1, "zap", "longish", NULL)
 	PF("%-10.2f", x)\
 	PF("%- 10.2f", x)\
 	PF("%-+10.4f", x)
-TEST_ITER(f1, 12.678, -12.678)
+TEST_ITER(Bf_book, 12.678, -12.678)
 
 /* octal without '#' */
-#define _o2(n)\
+#define _Bo_nosharp(n)\
 	PF("%o", n)\
 	PF("%.o", n)\
 	PF("%.0o", n)\
 	PF("%.1o", n)\
 	PF("%.2o", n)\
 	PF("%.3o", n)
-TEST_ITER(o2, 0, 3, 19, 73, 100)
+TEST_ITER(Bo_nosharp, 0, 3, 19, 73, 100)
 
 /* octal with '#' */
-#define _o3(n)\
+#define _Bo_sharp(n)\
 	PF("%#o", n)\
 	PF("%#.o", n)\
 	PF("%#.0o", n)\
 	PF("%#.1o", n)\
 	PF("%#.2o", n)\
 	PF("%#.3o", n)
-TEST_ITER(o3, 0, 3, 19, 73, 100)
+TEST_ITER(Bo_sharp, 0, 3, 19, 73, 100)
 
-TEST(test03)	/* precision passed through '*' */
+/* precision passed through '*' */
+TEST(X_prec_star)
 {
 	PF("%10.*d", -5, 42)
-
 	PF("%10.*s", -5, "abc")
 }
 
 /* pointers */
-#define _p1(p)\
+#define _Bp(p)\
 	PF("%p", p)\
 	PF("%10p", p)\
 	PF("%.7p", p)\
@@ -130,10 +130,10 @@ TEST(test03)	/* precision passed through '*' */
 	PF("%0.7p", p)\
 	PF("%-010p", p)\
 	PF("%-010.7p", p)
-TEST_ITER(p1, NULL, ((void *)0x4242), ((void *)0x1a2b3c4d5e6f))
+TEST_ITER(Bp, NULL, ((void *)0x4242), ((void *)0x1a2b3c4d5e6f))
 
 /* negative number */
-TEST(dneg)
+TEST(Bd_negative)
 {
 	PF("%d", -12345678)
 	PF("%7d", -12345678)
@@ -205,12 +205,12 @@ TEST(dneg)
 
 ALL_TESTS(
 	/* examples from the book */
-	T(d1) T(u1) T(o1) T(x1) T(c1) T(s1) T(f1)
+	T(Bd_book) T(Bu_book) T(Bo_book) T(Bx_book) T(Bc_book) T(Bs_book) T(Bf_book)
 	/* other tests */
-	T(o2) T(o3)
-	T(test03)
-	T(p1)
-	T(dneg)
+	T(Bo_nosharp) T(Bo_sharp)
+	T(X_prec_star)
+	T(Bp)
+	T(Bd_negative)
 
 /*
 **	Add the names of your test here.

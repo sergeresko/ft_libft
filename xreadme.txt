@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/25 17:05:30 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/26 13:33:17 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,3 +58,30 @@ at first.
 				|		"cat xout_ft.txt" OR "cat xout_libc.txt"
 				|			(run this to see the whole output file)
 				V
+
+
+
+TEST NAMING CONVENTION
+
+The name of a test is composed of the following parts in succession:
+1.	a capital letter B, H, U, X
+		B means a BASIC test: ft_printf must work exactly as printf.
+		H means a HARD test: even if output is different, one can forgive this.
+		U means a test where printf has UNDEFINED BEHAVIOR.
+		X means an EXTRA test for bonus features not required in the subject.
+2.	1)	either one of the letters d, i, o, u, x, X, s, c, p, f, ...
+		(if the test is designed for a speific convertion)
+	2)	or an underscore (_)
+		(if the test doesn't have a conversion or has different convertions)
+3.	an arbitrary sequence of alphanumeric characters
+
+Good test names are, for example:
+	Bd_syeresko	(a basic test for "%d" by <syeresko>)
+	B_percent	(a basic test for "%%" conversion)
+	Hf_e150		(a hard test for "%f" that tests the number 10^150)
+	U_two_stars	(a test for "%**", which is undefined by the standard)
+	Xs_wide		(an extra test for "%ls")
+
+Bad test names are, for example:
+	test001
+	qweqweqwe
