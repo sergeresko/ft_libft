@@ -5,59 +5,59 @@
 
 /* examples from the book (p. 394) */
 #define _d1(n)\
-PF("%d", n)\
-PF("%12d", n)\
-PF("%012d", n)\
-PF("% 012d", n)\
-PF("%+12d", n)\
-PF("%+012d", n)\
-PF("%-12d", n)\
-PF("%- 12d", n)\
-PF("%-+12d", n)\
-PF("%12.4d", n)\
-PF("%-12.4d", n)
+	PF("%d", n)\
+	PF("%12d", n)\
+	PF("%012d", n)\
+	PF("% 012d", n)\
+	PF("%+12d", n)\
+	PF("%+012d", n)\
+	PF("%-12d", n)\
+	PF("%- 12d", n)\
+	PF("%-+12d", n)\
+	PF("%12.4d", n)\
+	PF("%-12.4d", n)
 TEST_ITER(d1, 42, -42)
 
 /* examples from the book (p. 394) */
 #define _u1(n)\
-PF("%u", n)\
-PF("%14u", n)\
-PF("%014u", n)\
-PF("%#14u", n)\
-PF("%#014u", n)\
-PF("%-14u", n)\
-PF("%-#14u", n)\
-PF("%14.4u", n)\
-PF("%-14.4u", n)\
-PF("%-#14.4u", n)
+	PF("%u", n)\
+	PF("%14u", n)\
+	PF("%014u", n)\
+	PF("%#14u", n)\
+	PF("%#014u", n)\
+	PF("%-14u", n)\
+	PF("%-#14u", n)\
+	PF("%14.4u", n)\
+	PF("%-14.4u", n)\
+	PF("%-#14.4u", n)
 TEST_ITER(u1, 42, -42)
 
 /* examples from the book (p. 395) */
 #define _o1(n)\
-PF("%o", n)\
-PF("%14o", n)\
-PF("%014o", n)\
-PF("%#14o", n)\
-PF("%#014o", n)\
-PF("%-14o", n)\
-PF("%-#14o", n)\
-PF("%14.4o", n)\
-PF("%-14.4o", n)\
-PF("%-#14.4o", n)
+	PF("%o", n)\
+	PF("%14o", n)\
+	PF("%014o", n)\
+	PF("%#14o", n)\
+	PF("%#014o", n)\
+	PF("%-14o", n)\
+	PF("%-#14o", n)\
+	PF("%14.4o", n)\
+	PF("%-14.4o", n)\
+	PF("%-#14.4o", n)
 TEST_ITER(o1, 42, -42)
 
 /* examples from the book (p. 395) */
 #define _x1(n)\
-PF("%x", n)\
-PF("%14x", n)\
-PF("%014x", n)\
-PF("%#14x", n)\
-PF("%#014x", n)\
-PF("%-14x", n)\
-PF("%-#14x", n)\
-PF("%14.4x", n)\
-PF("%-14.4x", n)\
-PF("%-#14.4x", n)
+	PF("%x", n)\
+	PF("%14x", n)\
+	PF("%014x", n)\
+	PF("%#14x", n)\
+	PF("%#014x", n)\
+	PF("%-14x", n)\
+	PF("%-#14x", n)\
+	PF("%14.4x", n)\
+	PF("%-14.4x", n)\
+	PF("%-#14.4x", n)
 TEST_ITER(x1, 42, -42)
 
 /* examples from the book (p. 396) */
@@ -71,44 +71,44 @@ TEST(c1)
 
 /* examples from the book (p. 397) */
 #define _s1(s)\
-PF("%s", s)\
-PF("%12s", s)\
-PF("%12.5s", s)\
-PF("%012s", s)\
-PF("%-12s", s)
+	PF("%s", s)\
+	PF("%12s", s)\
+	PF("%12.5s", s)\
+	PF("%012s", s)\
+	PF("%-12s", s)
 TEST_ITER(s1, "zap", "longish", NULL)
 
 /* examples from the book (p. 398) */
 #define _f1(x)\
-PF("%f", x)\
-PF("%10.2f", x)\
-PF("%010.2f", x)\
-PF("% 010.2f", x)\
-PF("%+10.2f", x)\
-PF("%+010.2f", x)\
-PF("%-10.2f", x)\
-PF("%- 10.2f", x)\
-PF("%-+10.4f", x)
+	PF("%f", x)\
+	PF("%10.2f", x)\
+	PF("%010.2f", x)\
+	PF("% 010.2f", x)\
+	PF("%+10.2f", x)\
+	PF("%+010.2f", x)\
+	PF("%-10.2f", x)\
+	PF("%- 10.2f", x)\
+	PF("%-+10.4f", x)
 TEST_ITER(f1, 12.678, -12.678)
 
 /* octal without '#' */
 #define _o2(n)\
-PF("%o", n)\
-PF("%.o", n)\
-PF("%.0o", n)\
-PF("%.1o", n)\
-PF("%.2o", n)\
-PF("%.3o", n)
+	PF("%o", n)\
+	PF("%.o", n)\
+	PF("%.0o", n)\
+	PF("%.1o", n)\
+	PF("%.2o", n)\
+	PF("%.3o", n)
 TEST_ITER(o2, 0, 3, 19, 73, 100)
 
 /* octal with '#' */
 #define _o3(n)\
-PF("%#o", n)\
-PF("%#.o", n)\
-PF("%#.0o", n)\
-PF("%#.1o", n)\
-PF("%#.2o", n)\
-PF("%#.3o", n)
+	PF("%#o", n)\
+	PF("%#.o", n)\
+	PF("%#.0o", n)\
+	PF("%#.1o", n)\
+	PF("%#.2o", n)\
+	PF("%#.3o", n)
 TEST_ITER(o3, 0, 3, 19, 73, 100)
 
 TEST(test03)	/* precision passed through '*' */
@@ -120,16 +120,16 @@ TEST(test03)	/* precision passed through '*' */
 
 /* pointers */
 #define _p1(p)\
-PF("%p", p)\
-PF("%10p", p)\
-PF("%.7p", p)\
-PF("%-10p", p)\
-PF("%-10.7p", p)\
-PF("%0p", p)\
-PF("%010p", p)\
-PF("%0.7p", p)\
-PF("%-010p", p)\
-PF("%-010.7p", p)
+	PF("%p", p)\
+	PF("%10p", p)\
+	PF("%.7p", p)\
+	PF("%-10p", p)\
+	PF("%-10.7p", p)\
+	PF("%0p", p)\
+	PF("%010p", p)\
+	PF("%0.7p", p)\
+	PF("%-010p", p)\
+	PF("%-010.7p", p)
 TEST_ITER(p1, NULL, ((void *)0x4242), ((void *)0x1a2b3c4d5e6f))
 
 /* negative number */

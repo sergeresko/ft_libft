@@ -20,10 +20,10 @@
 **	https://github.com/swansontec/map-macro
 */
 
-#define EVAL0(...) __VA_ARGS__
-#define EVAL1(...) EVAL0(EVAL0(__VA_ARGS__))
-#define EVAL2(...) EVAL1(EVAL1(__VA_ARGS__))
-#define EVAL(...)  EVAL2(EVAL2(__VA_ARGS__))
+#define EVAL0(...)	__VA_ARGS__
+#define EVAL1(...)	EVAL0(EVAL0(__VA_ARGS__))
+#define EVAL2(...)	EVAL1(EVAL1(__VA_ARGS__))
+#define EVAL(...)	EVAL2(EVAL2(__VA_ARGS__))
 //#define EVAL0(...) __VA_ARGS__
 //#define EVAL1(...) EVAL0(EVAL0(EVAL0(__VA_ARGS__)))
 //#define EVAL2(...) EVAL1(EVAL1(EVAL1(__VA_ARGS__)))
@@ -32,15 +32,15 @@
 //#define EVAL(...)  EVAL4(EVAL4(EVAL4(__VA_ARGS__)))
 #define MAP_END(...)
 #define MAP_OUT
-#define MAP_GET_END2() 0, MAP_END
-#define MAP_GET_END1(...) MAP_GET_END2
-#define MAP_GET_END(...) MAP_GET_END1
-#define MAP_NEXT0(test, next, ...) next MAP_OUT
-#define MAP_NEXT1(test, next) MAP_NEXT0(test, next, 0)
-#define MAP_NEXT(test, next)  MAP_NEXT1(MAP_GET_END test, next)
-#define MAP0(f, x, peek, ...) f(x) MAP_NEXT(peek, MAP1)(f, peek, __VA_ARGS__)
-#define MAP1(f, x, peek, ...) f(x) MAP_NEXT(peek, MAP0)(f, peek, __VA_ARGS__)
-#define MAP(f, ...) EVAL(MAP1(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
+#define MAP_GET_END2()		0, MAP_END
+#define MAP_GET_END1(...)	MAP_GET_END2
+#define MAP_GET_END(...)	MAP_GET_END1
+#define MAP_NEXT0(test, next, ...)	next MAP_OUT
+#define MAP_NEXT1(test, next)	MAP_NEXT0(test, next, 0)
+#define MAP_NEXT(test, next) 	MAP_NEXT1(MAP_GET_END test, next)
+#define MAP0(f, x, peek, ...)	f(x) MAP_NEXT(peek, MAP1)(f, peek, __VA_ARGS__)
+#define MAP1(f, x, peek, ...)	f(x) MAP_NEXT(peek, MAP0)(f, peek, __VA_ARGS__)
+#define MAP(f, ...)		EVAL(MAP1(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
 
 /*
 **	Definitions for checking ft_printf
@@ -56,15 +56,15 @@ typedef struct	s_pair
 int				ft_printf(const char *, ...);
 int				res;
 
+#define PF(...)\
+	f("\e[31m(%s)\e[0m", #__VA_ARGS__);\
+	res = f(__VA_ARGS__);\
+	f("\e[31m(%d)\e[0m\n", res);
 #define TEST(name)			void name(t_func f)
 #define TEST_ITER(name,...) TEST(name){MAP(_##name,__VA_ARGS__)}
 #define T(name)				{#name, name},
-#define PF(...)\
-f("\e[31m(%s)\e[0m", #__VA_ARGS__);\
-res = f(__VA_ARGS__);\
-f("\e[31m(%d)\e[0m\n", res);
-#define LEN(array)	(sizeof(array) / sizeof(*array))
 #define ALL_TESTS(...)		t_pair g_tests[] = {{NULL, NULL}, __VA_ARGS__};
+#define LEN(array)			(sizeof(array) / sizeof(*array))
 
 #include "xtests.h"
 
