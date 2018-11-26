@@ -59,7 +59,7 @@ int				res;
 	printf("\e[31m(%d)\e[0m\n", res);
 #define TEST(name)			void name(t_func f) {
 #define END					}
-#define TEST_ITER(name,...) TEST(name) { MAP(_##name, __VA_ARGS__) }
+#define TEST_ITER(name,...) TEST(name) MAP(_##name, __VA_ARGS__) END
 #define T(name)				{#name, name},
 #define ALL_TESTS(...)		t_pair g_tests[] = {{NULL, NULL}, __VA_ARGS__};
 #define TESTS_NUM			(sizeof(g_tests) / sizeof(*g_tests))
