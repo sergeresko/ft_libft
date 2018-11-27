@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/26 16:31:28 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/27 13:49:29 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,7 @@ The name of a test is composed of the following three parts in succession:
 	2)	or an underscore (_)
 		(if the test doesn't involve a conversion or has different conversions)
 3.	an arbitrary sequence of alphanumeric characters
+		(a concise description)
 
 Good test names are, for example:
 	B_percent	(a basic test for "%%" conversion)

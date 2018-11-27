@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/26 14:12:26 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/27 18:08:14 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,16 @@ int				main(int argc, char **argv)
 		stop();
 	if (argv[2][0] == '-')
 	{
+		int		ok = 0;
+
 		for (i = 1; i < TESTS_NUM; ++i)
 			if (prefix(argv[2] + 1, TEST_NAME(i)))
+			{
 				TEST_FUNC(i)(f);
+				ok = 1;
+			}
+		if (!ok)
+			stop();
 		return (0);
 	}
 	i = atoi(argv[2]);
