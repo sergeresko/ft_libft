@@ -16,7 +16,7 @@
 Copy the files from this directory to the root of your ft_printf repository.
 The names of all these files start with letter 'x' for convenience, so that
 they hopefully don't mix with your own files.
-Alternatively, if you want to keep them in a seperate directory, open the file
+Alternatively, if you want to keep them in a separate directory, open the file
 "xmake" with a text editor and specify the path to your "libftprintf.a" there.
 
 To let the shell scripts be executed without prepending "sh" each time, run
@@ -74,8 +74,8 @@ To let the shell scripts be executed without prepending "sh" each time, run
 Since "./x PARAMETER" displays a diff, if nothing appears on the screen, it
 means that your ft_printf has successfully passed a test.
 
-If you don't want to compare your ft_printf with printf, but just want to see
-the output produced by either of these functions, you may run
+If you don't want to compare ft_printf and printf, but just want to see the
+output produced by either of these functions, you may run
 	"./xcheck 1 PARAMETER" (for ft_printf)
 	OR
 	"./xcheck 2 PARAMETER" (for printf)
@@ -94,7 +94,7 @@ and then
 The name of a test is composed of the following three parts in succession:
 1.	a capital letter B, H, U, X, or M
 		B means a BASIC test: ft_printf must work exactly as printf.
-		H means a HARD test: even if output is different, one can forgive this.
+		H means a HARD test: even if output differs, one can forgive this.
 		U means a test where printf has UNDEFINED BEHAVIOR.
 		X means an EXTRA test for bonus features not required in the subject.
 		M means a MIXED test comprising miscellaneous test cases.
@@ -106,18 +106,18 @@ The name of a test is composed of the following three parts in succession:
 
 Good test names are, for example:
 	B_percent	(a basic test for "%%" conversion)
-	Hf_1e150	(a hard test for "%f" that tests the number 10^150)
-	U_two_stars	(a test for "%**", which is undefined by the standard)
+	Hf_1e150	(a hard test for "%f" that checks such numbers as 10^150)
+	U_2stars	(a test for "%**", which is undefined by the standard)
 	Xs_wide		(an extra test for "%ls")
-	M_syeresko	(a test with various stuff by <syeresko>)
-
+	M_xlogin	(a test with various stuff by <xlogin> who was too lazy to
+				classify his/her test cases and give them appropriate names)
 Bad test names are, for example:
 	test001
 	qweqweqwe
 
 This naming strategy allows, for example, to invoke all basic tests by running
-"./x -B" or all tests for "%e" conversion by running "./x -Xe". You might have
-already guessed that "./x -" would execute all available tests.
+"./x -B" or all tests for "%e" by running "./x -Xe" (see lines 63-65).
+You might have already guessed that "./x -" would execute all available tests.
 
 
 
@@ -132,22 +132,22 @@ out what these macros do and how to use them.
 
 There are two kinds of tests: a plain test (TEST) and an iterative test
 (TEST_ITER). The names of the tests are indicated as the argument of a TEST
-macro or as the first argument of a TEST_ITER macro. For example, the following
-two tests virtually do the same thing:
+macro or as the first argument of a TEST_ITER macro. For instance, the
+following two tests (called "Bs_example") virtually do the same thing:
 
-1.	TEST(name)
-		PF("It %s an %s", "is", "example")
-		PF("It %s an %s", "could be", "example")
-		PF("It %s an %s", "won't count as", "example")
-		PF("It %-6s an %.2s", "is", "example")
-		PF("It %-6s an %.2s", "could be", "example")
-		PF("It %-6s an %.2s", "won't count as", "example")
+1.	TEST(Bs_example)
+		PF("It %010s an %s", "is", "example")
+		PF("It %010s an %s", "could be", "example")
+		PF("It %010s an %s", "won't count as", "example")
+		PF("It %-9s an %.2s", "is", "example")
+		PF("It %-9s an %.2s", "could be", "example")
+		PF("It %-9s an %.2s", "won't count as", "example")
 	END
 
-2.	#define _name(x)\
-		PF("It %s an %s", x, "example")\
-		PF("It %-6s an %.2s", x, "example")
-	TEST_ITER(name, "is", "could be", "won't count as")
+2.	#define _Bs_example(x)\
+		PF("It %010s an %s", x, "example")\
+		PF("It %-9s an %.2s", x, "example")
+	TEST_ITER(Bs_example, "is", "could be", "won't count as")
 
 NOTE 1:	There is NO SEMICOLON ';' after a PF call.
 NOTE 2:	There is NO BACKSLASH '\' in the last line of a #define.
