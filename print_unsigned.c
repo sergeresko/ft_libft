@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 17:05:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 20:18:00 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/28 15:45:05 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	count_zeroes_u(const t_fmt *f, int n_digits)
 {
 	if (f->prec >= 0)
 		return (ft_max(0, f->prec - n_digits));
-	if (f->zero && !f->left)
+	if (f->zero && !f->left && n_digits)
 		return (ft_max(0, f->width - n_digits));
 	return (n_digits == 0);
 }

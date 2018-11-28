@@ -196,6 +196,17 @@ TEST(Bd_negative)
 	PF("%20.10d", -12345678)
 END
 
+#define _B_0width(n)\
+	PF("%0d", n)\
+	PF("%0o", n)\
+	PF("%0x", n)\
+	PF("%0X", n)\
+	PF("%#0d", n)\
+	PF("%#0o", n)\
+	PF("%#0x", n)\
+	PF("%#0X", n)
+TEST_ITER(B_0width, 0, 42, -42)
+
 /*
 **	Add your tests here.
 */
@@ -208,6 +219,7 @@ ALL_TESTS(
 	T(X_prec_star)
 	T(Bp)
 	T(Bd_negative)
+	T(B_0width)
 
 /*
 **	Add the names of your test here.
