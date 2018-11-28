@@ -73,7 +73,10 @@ char	*frac_s(double x, int prec)
 
 int		main(void)
 {
-	double	x = 1234567890123456.7890;
+//	double	x = 56789012345.67890123456789;
+//	double	x = 19.999999996;
+//	double	x = 1.42e50;
+	double	x = 3.149e-15;
 	int		prec = 19;
 	double	ent = entier(x);
 	double	frac = x - ent;
