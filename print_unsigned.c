@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 17:05:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/28 18:59:27 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/28 21:24:20 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_printf.h"
 #include <inttypes.h>
 
-#include <unistd.h>		// for write in ft_print_integer
+#include <unistd.h>		// for write
 
 
 //	TODO: remake
@@ -49,22 +49,7 @@ static char	*ft_unsigned_s(const t_fmt *a_fmt, unsigned long long num)
 }
 */
 
-static char	*ft_unsigned_s(uintmax_t num)
-{
-	char	*s;
-
-	s = PF_BUF_END;
-	*s = '\0';
-	while (num)
-	{
-		*(--s) = '0' + num % 10;
-		num /= 10;
-	}
-	return (s);
-}
-
-/*
-int			ft_print_unsigned(const t_fmt *a_fmt, unsigned long long num)
+int			ft_print_unsigned(const t_fmt *f, uintmax_t num)
 {
 	char	*s;
 	int		n_prefix;
@@ -72,39 +57,11 @@ int			ft_print_unsigned(const t_fmt *a_fmt, unsigned long long num)
 	int		n_digits;
 	int		val_len;
 
-	s = ft_unsigned_s(num);
+	s = pf_itoa_base(f, num, 10);
+	n_prefix = 0;										//
 	n_digits = ft_strlen(s);
-	n_prefix = (num && a_fmt->alternate && ft_strchr("bBxX", a_fmt->conversion)) ? 2 : 0;
-	n_zeroes = count_zeroes(a_fmt, n_sign, n_digits);
-	val_len = n_sign + n_zeroes + n_digits;
-
-	if (!a_fmt->left_align && (!a_fmt->zero_padding || a_fmt->precision >= 0))
-		ft_putnchar(' ', a_fmt->width - val_len);
-	if (num < 0)
-		ft_putchar('-');
-	else if (a_fmt->plus)
-		ft_putchar('+');
-	else if (a_fmt->blank)
-		ft_putchar(' ');
-	ft_putnchar('0', n_zeroes);
-	write(1, s, n_digits);		//	OR ft_putstr(s);
-	if (a_fmt->left_align)
-		ft_putnchar(' ', a_fmt->width - val_len);
-	return ((a_fmt->width > val_len) ? a_fmt->width : val_len);
-}
-*/
-
-int			ft_print_unsigned(const t_fmt *f, uintmax_t num)
-{
-	char	*s;
-	int		n_zeroes;
-	int		n_digits;
-	int		val_len;
-
-	s = ft_unsigned_s(num);
-	n_digits = ft_strlen(s);
-	n_zeroes = count_zeroes(f, 0, n_digits);
-	val_len = n_zeroes + n_digits;
+	n_zeroes = count_zeroes(f, n_prefix, n_digits);
+	val_len = n_prefix + n_zeroes + n_digits;
 
 	if (!f->left && (!f->zero || f->prec >= 0))
 		ft_putnchar(' ', f->width - val_len);

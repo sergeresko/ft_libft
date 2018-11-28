@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/28 18:57:47 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/28 21:15:28 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 # define PF_BUF_END g_pf_buf + PF_BUF_SIZE
 
 
+char	*pf_itoa_base(const t_fmt *f, uintmax_t num, unsigned base);
 int		count_zeroes(const t_fmt *f, int n_prefix, int n_digits);
 
 
