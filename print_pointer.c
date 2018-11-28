@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 20:18:34 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 20:16:59 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/28 17:36:53 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,13 @@ static char	*ft_pointer_s(uintmax_t num)
 	return (s);
 }
 
-static int	count_zeroes_x(const t_fmt *f, int n_prefix, int n_digits)
+static int	count_zeroes(const t_fmt *f, int n_prefix, int n_digits)
 {
-	int		min_zeroes;
-
-	min_zeroes = (n_digits == 0);
 	if (f->prec >= 0)
-		return (ft_max(min_zeroes, f->prec - n_digits));
+		return (ft_max(0, f->prec - n_digits));
 	if (f->zero && !f->left)
-		return (ft_max(min_zeroes, f->width - n_prefix - n_digits));
-	return (min_zeroes);
+		return (ft_max((n_digits == 0), f->width - n_prefix - n_digits));
+	return (n_digits == 0);
 }
 
 int		ft_print_pointer(const t_fmt *f, void *ptr)
@@ -57,7 +54,7 @@ int		ft_print_pointer(const t_fmt *f, void *ptr)
 	s = ft_pointer_s((uintmax_t)ptr);
 	n_prefix = 2;
 	n_digits = ft_strlen(s);
-	n_zeroes = count_zeroes_x(f, n_prefix, n_digits);
+	n_zeroes = count_zeroes(f, n_prefix, n_digits);
 	val_len = n_prefix + n_zeroes + n_digits;
 
 	if (!f->left && (!f->zero || f->prec >= 0))
