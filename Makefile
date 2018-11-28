@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:06:47 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/24 20:28:01 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/28 19:00:03 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = libftprintf.a
 SRC = \
 		ft_printf.c				\
 		parse_format.c			\
+		count_zeroes.c			\
 		print_character.c		\
 		print_integer.c			\
 		print_string.c			\

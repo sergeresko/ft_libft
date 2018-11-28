@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/25 20:10:07 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/28 18:57:47 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 # define PF_BUF_START g_pf_buf
 # define PF_BUF_END g_pf_buf + PF_BUF_SIZE
 
+
+int		count_zeroes(const t_fmt *f, int n_prefix, int n_digits);
 
 
 int		ft_print_character(const t_fmt *a_fmt, char c);

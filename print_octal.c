@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:18:30 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/28 18:53:19 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/28 18:59:03 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,6 @@ int			ft_print_octal(const t_fmt *f, uintmax_t num)
 	return (ft_max(f->width, val_len));
 }
 */
-
-static int	count_zeroes(const t_fmt *f, int n_prefix, int n_digits)
-{
-	if (f->prec >= 0)
-		return (ft_max(0, f->prec - n_digits));
-	if (f->zero && !f->left)
-		return (ft_max((n_digits == 0), f->width - n_prefix - n_digits));
-	return (n_digits == 0);
-}
 
 int			ft_print_octal(const t_fmt *f, uintmax_t num)
 {
