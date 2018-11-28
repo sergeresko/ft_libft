@@ -77,7 +77,7 @@ void			stop(void)
 {
 	fprintf(stderr, "\e[32mAvailable tests:\e[0m\n");
 	for (int i = 1; i < TESTS_NUM; ++i)
-		fprintf(stderr, "\e[32m[%d]\e[0m%s ", i, g_tests[i].name);
+		fprintf(stderr, "\e[32m[%d]\e[0m%s ", i, TEST_NAME(i));
 	fprintf(stderr, "\n");
 	exit(1);
 }
