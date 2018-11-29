@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 14:57:37 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/24 17:52:06 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 14:44:53 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,10 @@ void	ft_parse_modifier(t_fmt *f, const char **a_str)
 			f->mod = (m == MOD_H || m == MOD_HH) ? MOD_HH : MOD_H;
 		else if (c == 'l')
 			f->mod = (m == MOD_L || m == MOD_LL) ? MOD_LL : MOD_L;
+		else if (c == 'j')
+			f->mod = MOD_J;
+		else if (c == 'z')
+			f->mod = MOD_Z;
 		else if (c == 'L')
 			f->mod = MOD_L_CAPITAL;
 		else

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:18:30 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/28 21:25:23 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 13:46:59 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int			ft_print_octal(const t_fmt *f, uintmax_t num)
 	int		n_digits;
 	int		val_len;
 
-	s = pf_itoa_base(f, num, 8);
+	s = pf_itoa_base(f, num);
 	n_digits = ft_strlen(s);
-	n_prefix = (n_digits < f->prec) ? 0 : (f->alt == 1);	//
+	n_prefix = (f->alt && n_digits >= f->prec) ? 1 : 0;		//
+//	n_prefix = (n_digits < f->prec) ? 0 : (f->alt == 1);	//	old
 	n_zeroes = count_zeroes(f, n_prefix, n_digits);
 	if (n_zeroes == 1 && n_prefix && n_digits == 0)			//
 		n_zeroes = 0;										//

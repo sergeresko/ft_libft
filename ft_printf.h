@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/28 21:15:28 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 14:44:39 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <inttypes.h>
 
 # define	PF_FLAGS		"#0- +\'"
-# define	PF_MODIFIERS	"hlL"
+# define	PF_MODIFIERS	"hljzL"
 # define	PF_CONVERSIONS	"cspdibBouxXfk%"
 
 typedef enum	e_modifier
@@ -27,6 +27,8 @@ typedef enum	e_modifier
 	MOD_H,
 	MOD_L,
 	MOD_LL,
+	MOD_J,
+	MOD_Z,
 	MOD_L_CAPITAL
 }				t_modifier;
 
@@ -62,7 +64,7 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 # define PF_BUF_END (g_pf_buf + PF_BUF_SIZE)
 
 
-char	*pf_itoa_base(const t_fmt *f, uintmax_t num, unsigned base);
+char	*pf_itoa_base(const t_fmt *f, uintmax_t num);
 int		count_zeroes(const t_fmt *f, int n_prefix, int n_digits);
 
 
