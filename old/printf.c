@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+#include <wchar.h>
+#include <locale.h>
+
 int		main(void)
 {
 	int		i;
@@ -46,6 +49,10 @@ int		main(void)
 	printf("%d\n", i);
 
 	i = printf("|%.12.*d|\n", -6, 12345);
+	printf("%d\n", i);
+
+	setlocale(LC_ALL, "en_US.UTF-8");
+	i = printf("%lc", (wchar_t)L'我');
 	printf("%d\n", i);
 
 	return (0);
