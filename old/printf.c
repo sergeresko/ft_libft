@@ -45,5 +45,8 @@ int		main(void)
 	i = printf("|%#0o|\n", 42);
 	printf("%d\n", i);
 
+	i = printf("|%.12.*d|\n", -6, 12345);
+	printf("%d\n", i);
+
 	return (0);
 }
