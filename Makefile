@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:06:47 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/28 21:15:44 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/29 15:17:35 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,10 @@ SRC = \
 		print_character.c		\
 		print_integer.c			\
 		print_string.c			\
-		print_octal.c			\
-		print_hexadecimal.c		\
 		print_unsigned.c		\
+		print_hexadecimal.c		\
+		print_octal.c			\
+		print_binary.c			\
 		print_pointer.c
 
 all: $(NAME)

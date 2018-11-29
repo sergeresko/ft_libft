@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 14:55:38 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 15:22:10 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	{
 		len = ft_print_string(&fmt, va_arg(ap, char *));
 	}
-	else if (fmt.conv && ft_strchr("uoxX", fmt.conv))
+	else if (fmt.conv && ft_strchr("uoxXbB", fmt.conv))
 	{
 		uintmax_t	num;
 
@@ -107,6 +107,8 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 			len = ft_print_unsigned(&fmt, num);
 		else if (fmt.conv == 'o')
 			len = ft_print_octal(&fmt, num);
+		else if (ft_strchr("bB", fmt.conv))
+			len = ft_print_binary(&fmt, num);
 		else									// if 'x' or 'X'
 			len = ft_print_hexadecimal(&fmt, num);
 	}

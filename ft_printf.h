@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 14:44:39 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 15:17:06 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int		ft_print_string(const t_fmt *a_fmt, const char *str);
 
 int		ft_print_integer(const t_fmt *a_fmt, intmax_t num);
 
-int		ft_print_octal(const t_fmt *a_fmt, uintmax_t num);
-int		ft_print_hexadecimal(const t_fmt *a_fmt, uintmax_t num);
 int		ft_print_unsigned(const t_fmt *a_fmt, uintmax_t num);
+int		ft_print_hexadecimal(const t_fmt *a_fmt, uintmax_t num);
+int		ft_print_octal(const t_fmt *a_fmt, uintmax_t num);
+int		ft_print_binary(const t_fmt *a_fmt, uintmax_t num);
 
 int		ft_print_pointer(const t_fmt *a_fmt, void *ptr);
 

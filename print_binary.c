@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_hexadecimal.c                                :+:      :+:    :+:   */
+/*   print_binary.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/24 12:32:19 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 15:16:17 by syeresko         ###   ########.fr       */
+/*   Created: 2018/11/29 15:15:02 by syeresko          #+#    #+#             */
+/*   Updated: 2018/11/29 15:15:55 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include <unistd.h>		// for write
 
-int		ft_print_hexadecimal(const t_fmt *f, uintmax_t num)
+int		ft_print_binary(const t_fmt *f, uintmax_t num)
 {
 	char	*s;
 	int		n_prefix;
@@ -33,8 +33,8 @@ int		ft_print_hexadecimal(const t_fmt *f, uintmax_t num)
 	if (!f->left && !(f->zero && f->prec == PF_PREC_NONE))
 		ft_putnchar(' ', f->width - val_len);
 	if (n_prefix)		// OR:	if (f->alt == 1)		//
-		write(1, f->conv == 'X' ? "0X" : "0x", 2);		//
-// OR:	ft_putstr(f->conv == 'X' ? "0X" : "0x");		//
+		write(1, f->conv == 'B' ? "0B" : "0b", 2);		//
+// OR:	ft_putstr(f->conv == 'B' ? "0B" : "0b");		//
 	ft_putnchar('0', n_zeroes);
 	write(1, s, n_digits);		//	OR ft_putstr(s);
 	if (f->left)
