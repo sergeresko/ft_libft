@@ -63,7 +63,7 @@ int			ft_print_unsigned(const t_fmt *f, uintmax_t num)
 	n_zeroes = count_zeroes(f, n_prefix, n_digits);
 	val_len = n_prefix + n_zeroes + n_digits;
 
-	if (!f->left && (!f->zero || f->prec >= 0))
+	if (!f->left && !(f->zero && f->prec == PF_PREC_NONE))
 		ft_putnchar(' ', f->width - val_len);
 	ft_putnchar('0', n_zeroes);
 	write(1, s, n_digits);		//	OR ft_putstr(s);

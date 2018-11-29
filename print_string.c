@@ -23,7 +23,7 @@ int		ft_print_string(const t_fmt *f, const char *str)
 	if (!str)
 		str = null_msg;
 	n_characters = ft_strlen(str);
-	if (0 <= f->prec && f->prec < n_characters)
+	if (f->prec != PF_PREC_NONE && f->prec < n_characters)
 		n_characters = f->prec;
 	if (!f->left)
 		ft_putnchar((f->zero) ? '0' : ' ', f->width - n_characters);

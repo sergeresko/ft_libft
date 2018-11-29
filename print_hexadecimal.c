@@ -25,12 +25,12 @@ int		ft_print_hexadecimal(const t_fmt *f, uintmax_t num)
 	int		val_len;
 
 	s = pf_itoa_base(f, num, 16);
-	n_prefix = (num != 0 && f->alt == 1) ? 2 : 0;	// = (num && f->alt) ? 2 : 0
+	n_prefix = (num != 0 && f->alt == 1) ? 2 : 0;	// = (f->alt && num) ? 2 : 0
 	n_digits = ft_strlen(s);
 	n_zeroes = count_zeroes(f, n_prefix, n_digits);
 	val_len = n_prefix + n_zeroes + n_digits;
 
-	if (!f->left && (!f->zero || f->prec >= 0))
+	if (!f->left && !(f->zero && f->prec == PF_PREC_NONE))
 		ft_putnchar(' ', f->width - val_len);
 	if (n_prefix)		// OR:	if (f->alt == 1)		//
 		write(1, f->conv == 'x' ? "0x" : "0X", 2);		//

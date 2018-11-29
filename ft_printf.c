@@ -121,7 +121,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	ft_putstr("\";\n    width:      ");
 	ft_putnbr(fmt.width);
 	ft_putstr(";\n    precision:  ");
-	if (fmt.prec == -1)
+	if (fmt.prec == PF_PREC_NONE)
 		ft_putstr("NONE");
 	else
 		ft_putnbr(fmt.prec);

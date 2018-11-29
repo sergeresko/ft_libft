@@ -20,7 +20,8 @@
 # define	PF_MODIFIERS	"hlL"
 # define	PF_CONVERSIONS	"cspdibBouxXfk%"
 
-typedef enum	e_modifier{
+typedef enum	e_modifier
+{
 	MOD_NONE = 0,
 	MOD_HH,
 	MOD_H,
@@ -46,6 +47,7 @@ typedef struct	s_fmt
 	unsigned	base;			//	needed ?
 }				t_fmt;
 
+# define PF_PREC_NONE (-1)
 
 
 
@@ -57,7 +59,7 @@ typedef struct	s_fmt
 # define PF_BUF_SIZE 1024
 char	g_pf_buf[PF_BUF_SIZE + 1];
 # define PF_BUF_START g_pf_buf
-# define PF_BUF_END g_pf_buf + PF_BUF_SIZE
+# define PF_BUF_END (g_pf_buf + PF_BUF_SIZE)
 
 
 char	*pf_itoa_base(const t_fmt *f, uintmax_t num, unsigned base);

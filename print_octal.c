@@ -32,7 +32,7 @@ int			ft_print_octal(const t_fmt *f, uintmax_t num)
 		n_zeroes = 0;										//
 	val_len = n_prefix + n_zeroes + n_digits;
 
-	if (!f->left && (!f->zero || f->prec >= 0))
+	if (!f->left && !(f->zero && f->prec == PF_PREC_NONE))
 		ft_putnchar(' ', f->width - val_len);
 	if (n_prefix)												//
 		write(1, "0", 1);		//	OR ft_putstr("0");			//

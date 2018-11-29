@@ -25,6 +25,7 @@ int			ft_print_integer(const t_fmt *f, intmax_t num)
 	int		n_digits;
 	int		val_len;
 
+//	s = pf_itoa_base(f, num == LLONG_MIN ? (uintmax_t)num : pf_abs(num), 10);
 	if (num == LLONG_MIN)											//
 		s = pf_itoa_base(f, (uintmax_t)num, 10);					//
 	else															//
@@ -35,7 +36,7 @@ int			ft_print_integer(const t_fmt *f, intmax_t num)
 	n_zeroes = count_zeroes(f, n_sign, n_digits);
 	val_len = n_sign + n_zeroes + n_digits;
 
-	if (!f->left && (!f->zero || f->prec >= 0))
+	if (!f->left && !(f->zero && f->prec == PF_PREC_NONE))
 		ft_putnchar(' ', f->width - val_len);
 	if (num < 0)									//
 		ft_putchar('-');							//

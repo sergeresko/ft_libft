@@ -176,7 +176,7 @@ void	ft_parse_format(t_fmt *a_fmt, const char **a_str, va_list ap)
 	char		c;
 
 	ft_bzero(a_fmt, sizeof(t_fmt));
-	a_fmt->prec = -1;
+	a_fmt->prec = PF_PREC_NONE;
 	while ((c = **a_str) && !(a_fmt->conv))
 	{
 		if (ft_strchr(PF_FLAGS, c))
