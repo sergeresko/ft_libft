@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/27 18:08:14 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 21:59:32 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <locale.h>
 
 /*
 **	MAP macro (C) 2012 William Swanson

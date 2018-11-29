@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 16:18:51 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 21:30:23 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,24 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 
 
 char	*pf_itoa_base(const t_fmt *f, uintmax_t num);
+char	*unicode_to_utf8(wchar_t wc);
+
 int		count_zeroes(const t_fmt *f, int n_prefix, int n_digits);
 
 
-int		ft_print_character(const t_fmt *a_fmt, char c);
-int		ft_print_string(const t_fmt *a_fmt, const char *str);
+int		ft_print_character(const t_fmt *f, char c);
+int		ft_print_wide_character(const t_fmt *f, wchar_t wc);
 
-int		ft_print_integer(const t_fmt *a_fmt, intmax_t num);
+int		ft_print_string(const t_fmt *f, const char *str);
 
-int		ft_print_unsigned(const t_fmt *a_fmt, uintmax_t num);
-int		ft_print_hexadecimal(const t_fmt *a_fmt, uintmax_t num);
-int		ft_print_octal(const t_fmt *a_fmt, uintmax_t num);
-int		ft_print_binary(const t_fmt *a_fmt, uintmax_t num);
+int		ft_print_integer(const t_fmt *f, intmax_t num);
 
-int		ft_print_pointer(const t_fmt *a_fmt, void *ptr);
+int		ft_print_unsigned(const t_fmt *f, uintmax_t num);
+int		ft_print_hexadecimal(const t_fmt *f, uintmax_t num);
+int		ft_print_octal(const t_fmt *f, uintmax_t num);
+int		ft_print_binary(const t_fmt *f, uintmax_t num);
+
+int		ft_print_pointer(const t_fmt *f, void *ptr);
 
 
 

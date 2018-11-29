@@ -323,6 +323,18 @@ TEST(Bd_lh)
 	PF("%ld", 4294967295)
 END
 
+#define _Bs_zero_and_precision(s)\
+	PF("%0.4s", s)\
+	PF("%010.4s", s)
+TEST_ITER(Bs_zero_and_precision, NULL, "zap", "longish")
+
+TEST(Xc_wide)
+	PF("%lc", L'ы')
+	setlocale(LC_ALL, "");
+	PF("%lc", L'ы')
+	setlocale(LC_ALL, "C");
+END
+
 /*
 **	Add your tests here.
 */
@@ -339,6 +351,8 @@ ALL_TESTS(
 	T(BX_book)
 	T(Hs_zero) T(H_percent_zero) T(Ho_zero) T(Hp_zero)
 	T(Hu_zero) T(HxX_zero) T(Hdi_zero)
+	T(Bs_zero_and_precision)
+	T(Xc_wide)
 
 /*
 **	Add the names of your test here.

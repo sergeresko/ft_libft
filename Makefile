@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:06:47 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/29 15:17:35 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/29 21:31:55 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,10 @@ SRC = \
 		ft_printf.c				\
 		parse_format.c			\
 		pf_itoa_base.c			\
+		pf_unicode_to_utf8.c	\
 		count_zeroes.c			\
 		print_character.c		\
+		print_wide_character.c	\
 		print_integer.c			\
 		print_string.c			\
 		print_unsigned.c		\

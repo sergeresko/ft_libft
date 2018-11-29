@@ -6,13 +6,17 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:48:44 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 19:24:16 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 21:31:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
+#include "ft_printf.h"
 
 #include <unistd.h>
 #include <wchar.h>
 
+/*
 int		print_wide_character(wchar_t wc)
 {
 	char	s[4];
@@ -42,50 +46,48 @@ int		print_wide_character(wchar_t wc)
 	write(1, s, i);
 	return (i);
 }
+*/
 
-#define BUF_SIZE 5
-char	g_buf[BUF_SIZE];
-#define BUF_START g_buf
-#define BUF_END (g_buf + BUF_SIZE)
-
-char	*unicode_to_utf8(wchar_t wc)
+int		ft_print_wide_character(const t_fmt *f, wchar_t wc)
 {
 	char	*s;
-	char	mask;
+	int		n_bytes;
 
-	s = BUF_END;
-	*s = '\0';
-	if (wc < 0200)
-	{
-		*(--s) = wc;
-		return (s);
-	}
-	mask = 0200;
-	while (wc > 0077)
-	{
-		*(--s) = 0200 | (wc & 0077);
-		wc >>= 6;
-		mask = 0200 | (mask >> 1);
-	}
-	*(--s) = mask | wc;
-	return (s);
+	s = unicode_to_utf8(wc);
+	n_bytes = ft_strlen(s);
+	if (!f->left)
+		ft_putnchar((f->zero) ? '0' : ' ', f->width - n_bytes);
+	write(1, s, n_bytes);		// or ft_putstr(s);
+	if (f->left)
+		ft_putnchar(' ', f->width - n_bytes);
+	return (ft_max(f->width, n_bytes));
 }
 
+/*
 #include <locale.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int		main(void)
 {
 	int			res;
 	wchar_t		wc = L'我';
-//	wchar_t		wc = L'ф';
+//	wchar_t		wc = L'ы';
 	char		*s;
 
-	setlocale(LC_ALL, "en_US.UTF-8");
+	setlocale(LC_ALL, "");
+	printf("%d\n", MB_CUR_MAX);
 	res = print_wide_character(wc);
 	printf("\n%d\n", res);
 	s = unicode_to_utf8(wc);
 	printf("%s\n", s);
-	printf("%4lc\n", L'w');
+	printf("%4lc\n", L'我');
+	printf("\n----\n");
+	for (int i = 126; i < 300; ++i)
+	{
+		res = printf("%3d: %.2lc", i, i);
+		printf("----(%d)\n", res);
+	}
 	return (0);
 }
+*/
