@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 14:47:02 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 14:55:38 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,44 +41,36 @@ int		ft_print_plain(const char **a_str)
 
 intmax_t	get_arg_signed(const t_fmt *f, va_list ap)
 {
-	intmax_t	num;
-
 	if (f->mod == MOD_HH)
-		num = (char)va_arg(ap, int);
-	else if (f->mod == MOD_H)
-		num = (short)va_arg(ap, int);
-	else if (f->mod == MOD_L)
-		num = va_arg(ap, long);
-	else if (f->mod == MOD_LL)
-		num = va_arg(ap, long long);
-	else if (f->mod == MOD_J)
-		num = va_arg(ap, intmax_t);
-	else if (f->mod == MOD_Z)
-		num = va_arg(ap, ssize_t);
-	else
-		num = va_arg(ap, int);
-	return (num);
+		return ((char)va_arg(ap, int));
+	if (f->mod == MOD_H)
+		return ((short)va_arg(ap, int));
+	if (f->mod == MOD_L)
+		return (va_arg(ap, long));
+	if (f->mod == MOD_LL)
+		return (va_arg(ap, long long));
+	if (f->mod == MOD_J)
+		return (va_arg(ap, intmax_t));
+	if (f->mod == MOD_Z)
+		return (va_arg(ap, ssize_t));
+	return (va_arg(ap, int));
 }
 
 uintmax_t	get_arg_unsigned(const t_fmt *f, va_list ap)
 {
-	uintmax_t	num;
-
 	if (f->mod == MOD_HH)
-		num = (unsigned char)va_arg(ap, unsigned);
-	else if (f->mod == MOD_H)
-		num = (unsigned short)va_arg(ap, unsigned);
-	else if (f->mod == MOD_L)
-		num = va_arg(ap, unsigned long);
-	else if (f->mod == MOD_LL)
-		num = va_arg(ap, unsigned long long);
-	else if (f->mod == MOD_J)
-		num = va_arg(ap, uintmax_t);
-	else if (f->mod == MOD_Z)
-		num = va_arg(ap, size_t);
-	else
-		num = va_arg(ap, unsigned);
-	return (num);
+		return ((unsigned char)va_arg(ap, unsigned));
+	if (f->mod == MOD_H)
+		return ((unsigned short)va_arg(ap, unsigned));
+	if (f->mod == MOD_L)
+		return (va_arg(ap, unsigned long));
+	if (f->mod == MOD_LL)
+		return (va_arg(ap, unsigned long long));
+	if (f->mod == MOD_J)
+		return (va_arg(ap, uintmax_t));
+	if (f->mod == MOD_Z)
+		return (va_arg(ap, size_t));
+	return (va_arg(ap, unsigned));
 }
 
 /*
@@ -95,24 +87,9 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	//
 	// Test:
 	if (fmt.conv == 'd' || fmt.conv == 'i')
-	/*
 	{
-		intmax_t	num;
-
-		if (fmt.mod == MOD_HH)
-			num = (char)va_arg(ap, int);
-		else if (fmt.mod == MOD_H)
-			num = (short)va_arg(ap, int);
-		else if (fmt.mod == MOD_L)
-			num = va_arg(ap, long);
-		else if (fmt.mod == MOD_LL)
-			num = va_arg(ap, long long);
-		else
-			num = va_arg(ap, int);
-		len = ft_print_integer(&fmt, num);
-	}
-	*/
 		len = ft_print_integer(&fmt, get_arg_signed(&fmt, ap));
+	}
 	else if (fmt.conv == 'c')
 	{
 		len = ft_print_character(&fmt, (char)va_arg(ap, int));
@@ -124,17 +101,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	else if (fmt.conv && ft_strchr("uoxX", fmt.conv))
 	{
 		uintmax_t	num;
-		/*
-		if (fmt.mod == MOD_HH)
-			num = (unsigned char)va_arg(ap, unsigned);
-		else if (fmt.mod == MOD_H)
-			num = (unsigned short)va_arg(ap, unsigned);
-		else if (fmt.mod == MOD_L)
-			num = va_arg(ap, unsigned long);
-		else if (fmt.mod == MOD_LL)
-			num = va_arg(ap, unsigned long long);
-		else
-			num = va_arg(ap, unsigned);*/
+
 		num = get_arg_unsigned(&fmt, ap);
 		if (fmt.conv == 'u')
 			len = ft_print_unsigned(&fmt, num);
