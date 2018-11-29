@@ -434,83 +434,17 @@
 [31m("%010.12s", "a")[0m000000000a[31m(10)[0m
 [31m("%010.s", "a")[0m0000000000[31m(10)[0m
 [31m("%010.s", "10")[0m0000000000[31m(10)[0m
-[31m("%0%", 0)[0m[32m{
-    flags:      "0";
-    width:      0;
-    precision:  NONE;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%010%", 0)[0m[32m{
-    flags:      "0";
-    width:      10;
-    precision:  NONE;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%0%", 10)[0m[32m{
-    flags:      "0";
-    width:      0;
-    precision:  NONE;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%010%", 10)[0m[32m{
-    flags:      "0";
-    width:      10;
-    precision:  NONE;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%0.%", 0)[0m[32m{
-    flags:      "0";
-    width:      0;
-    precision:  0;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%0.%", 10)[0m[32m{
-    flags:      "0";
-    width:      0;
-    precision:  0;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%0%", 0)[0m[32m{
-    flags:      "0";
-    width:      0;
-    precision:  NONE;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%010.12%", 10)[0m[32m{
-    flags:      "0";
-    width:      10;
-    precision:  12;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%010.12%", 0)[0m[32m{
-    flags:      "0";
-    width:      10;
-    precision:  12;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%010.%", 0)[0m[32m{
-    flags:      "0";
-    width:      10;
-    precision:  0;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
-[31m("%010.%", 10)[0m[32m{
-    flags:      "0";
-    width:      10;
-    precision:  0;
-    modifier:   NONE;
-    conversion: %;
-}[0m[31m(1000)[0m
+[31m("%0%", 0)[0m%[31m(1)[0m
+[31m("%010%", 0)[0m000000000%[31m(10)[0m
+[31m("%0%", 10)[0m%[31m(1)[0m
+[31m("%010%", 10)[0m000000000%[31m(10)[0m
+[31m("%0.%", 0)[0m%[31m(1)[0m
+[31m("%0.%", 10)[0m%[31m(1)[0m
+[31m("%0%", 0)[0m%[31m(1)[0m
+[31m("%010.12%", 10)[0m000000000%[31m(10)[0m
+[31m("%010.12%", 0)[0m000000000%[31m(10)[0m
+[31m("%010.%", 0)[0m000000000%[31m(10)[0m
+[31m("%010.%", 10)[0m000000000%[31m(10)[0m
 [31m("%0o", 0)[0m0[31m(1)[0m
 [31m("%010o", 0)[0m0000000000[31m(10)[0m
 [31m("%0o", 10)[0m12[31m(2)[0m

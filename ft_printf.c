@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 15:22:10 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:06:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	else if (fmt.conv == 'c')
 	{
 		len = ft_print_character(&fmt, (char)va_arg(ap, int));
+	}
+	else if (fmt.conv == '%')
+	{
+		len = ft_print_character(&fmt, '%');
 	}
 	else if (fmt.conv == 's')
 	{
