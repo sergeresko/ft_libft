@@ -23,7 +23,7 @@ double	entier(double x)
 		return (0.);
 	e -= 0x3ff;				// unbiased exponent
 	if (e < 52)
-	{
+	{						// OR JUST u.i = u.i >> (52 - e) << (52 - e);
 		u.i >>= 52 - e;
 		u.i <<= 52 - e;
 	}
