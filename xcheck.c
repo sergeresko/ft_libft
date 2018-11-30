@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/30 12:40:22 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 20:33:19 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ int				res;
 #define TEST_NAME(index)	(g_tests[index].name)
 #define TEST_FUNC(index)	(g_tests[index].address)
 
+#define N_COLUMNS			4
+#define N_ROWS				((TESTS_NUM - 2) / N_COLUMNS + 1)
+
 #include "xtests.h"
 
 int				prefix(const char *pre, const char *str)
@@ -80,10 +83,19 @@ int				prefix(const char *pre, const char *str)
 
 void			stop(void)
 {
+	int		i;
+
 	fprintf(stderr, "\e[32mAvailable tests:\e[0m\n");
-	for (int i = 1; i < TESTS_NUM; ++i)
-		fprintf(stderr, "\e[32m[%d]\e[0m%s ", i, TEST_NAME(i));
-	fprintf(stderr, "\n");
+	if (TESTS_NUM == 1)
+		fprintf(stderr, "none\n");
+	else
+		for (int r = 0; r < N_ROWS; ++r)
+		{
+			for (int c = 0; c < N_COLUMNS; ++c)
+				if ((i = N_ROWS * c + r + 1 ) < TESTS_NUM)
+					fprintf(stderr, "\e[32m[%2d]\e[0m%-16s", i, TEST_NAME(i));
+			fprintf(stderr, "\n");
+		}
 	exit(1);
 }
 

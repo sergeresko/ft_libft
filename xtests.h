@@ -219,7 +219,7 @@ TEST(Bd_negative)
 	PF("%0d", 0)
 END
 
-TEST(Hdi_zero)
+TEST(Hdi_0)
 	PF("%0d", 0)
 	PF("%010d", 0)
 	PF("%0d", 10)
@@ -233,7 +233,7 @@ TEST(Hdi_zero)
 	PF("%010.d", 10)
 END
 
-TEST(Hu_zero)
+TEST(Hu_0)
 	PF("%0u", 0)
 	PF("%010u", 0)
 	PF("%0u", 10)
@@ -248,7 +248,7 @@ TEST(Hu_zero)
 END
 
 
-TEST(HxX_zero)
+TEST(HxX_0)
 	PF("%0x", 0)
 	PF("%010X", 0)
 	PF("%0X", 10)
@@ -262,7 +262,7 @@ TEST(HxX_zero)
 	PF("%010.X", 10)
 END
 
-TEST(Hp_zero)
+TEST(Hp_0)
 	PF("%0p", 0)
 	PF("%010p", 0)
 	PF("%0p", 10)
@@ -276,7 +276,7 @@ TEST(Hp_zero)
 	PF("%010.p", 10)
 END
 
-TEST(Ho_zero)
+TEST(Ho_0)
 	PF("%0o", 0)
 	PF("%010o", 0)
 	PF("%0o", 10)
@@ -290,7 +290,7 @@ TEST(Ho_zero)
 	PF("%010.o", 10)
 END
 
-TEST(H_percent_zero)
+TEST(H_percent_0)
 	PF("%0%", 0)
 	PF("%010%", 0)
 	PF("%0%", 10)
@@ -304,7 +304,7 @@ TEST(H_percent_zero)
 	PF("%010.%", 10)
 END
 
-TEST(Hs_zero)
+TEST(Hs_0)
 	PF("%0s", "a")
 	PF("%010s", "a")
 	PF("%0s", "a")
@@ -323,10 +323,10 @@ TEST(Bd_lh)
 	PF("%ld", 4294967295)
 END
 
-#define _Bs_zero_and_precision(s)\
+#define _Bs_0_and_prec(s)\
 	PF("%0.4s", s)\
 	PF("%010.4s", s)
-TEST_ITER(Bs_zero_and_precision, NULL, "zap", "longish")
+TEST_ITER(Bs_0_and_prec, NULL, "zap", "longish")
 
 #define _Xc_wide(wc)\
 	DISPLAY_LOCALE PF("%lc", wc)\
@@ -364,6 +364,18 @@ TEST_ITER(Xs_wide_options, NULL, L"English", L"Українська", L"中文")
 	SET_LOCALE("C")
 TEST_ITER(Xs_wide_context, NULL, L"English", L"Українська", L"中文")
 
+#define _Bf_no_options(x)\
+	PF("%f", x)
+TEST_ITER(Bf_no_options, -1., 3141.5926, 1.000001)
+
+TEST(Hf)
+	PF("%.58f", 3.14e-56)
+	PF("%f", 2.718281828e40)
+	PF("%f", 42.42e99)
+	PF("%f", 42.42e148)
+	PF("%f", 42.42e213)
+END
+
 /*
 **	Add your tests here.
 */
@@ -378,12 +390,12 @@ ALL_TESTS(
 	T(Bd_negative)
 	T(Bd_lh)
 	T(BX_book)
-	T(Hs_zero) T(H_percent_zero) T(Ho_zero) T(Hp_zero)
-	T(Hu_zero) T(HxX_zero) T(Hdi_zero)
-	T(Bs_zero_and_precision)
+	T(Hs_0) T(H_percent_0) T(Ho_0) T(Hp_0) T(Hu_0) T(HxX_0) T(Hdi_0)
+	T(Bs_0_and_prec)
 	T(Xc_wide) T(Xs_wide)
 	T(Xc_wide_options) T(Xs_wide_options)
 	T(Xs_wide_context)
+	T(Bf_no_options) T(Hf)
 
 /*
 **	Add the names of your test here.

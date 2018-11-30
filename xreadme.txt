@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/25 13:26:53 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/27 13:49:29 by syeresko         ###   ########.fr        #
+#    Updated: 2018/11/30 20:42:14 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,6 +119,9 @@ Bad test names are, for example:
 This naming strategy allows, for example, to invoke all basic tests by running
 "./x -B" or all tests for "%e" by running "./x -Xe" (see lines 63-65).
 You might have already guessed that "./x -" would execute all available tests.
+
+NOTE:	For the purposes of nice formatting, test names should be no longer
+		than 15 characters.
 
 
 
