@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/30 14:42:55 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 21:03:31 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,36 +82,27 @@ uintmax_t	get_arg_unsigned(const t_fmt *f, va_list ap)
 int		ft_print_formatted(const char **a_str, va_list ap)
 {
 	t_fmt		fmt;
-	int			len;
 
 	ft_parse_format(&fmt, a_str, ap);
 	//
-	// Test:
+	//
+	//
 	if (fmt.conv == 'd' || fmt.conv == 'i')
-	{
-		len = ft_print_integer(&fmt, get_arg_signed(&fmt, ap));
-	}
-	else if (fmt.conv == 'c')
-	{
-		if (fmt.mod == MOD_L)
-			len = ft_print_wide_character(&fmt, (wchar_t)va_arg(ap, wint_t));
-		else
-			len = ft_print_character(&fmt, (char)va_arg(ap, int));
-	}
-	else if (fmt.conv == '%')
-	{
-		len = ft_print_character(&fmt, '%');
-	}
-	else if (fmt.conv == 's')
-	{
-		if (fmt.mod == MOD_L)
-			len = ft_print_wide_string(&fmt, (wchar_t *)va_arg(ap, wint_t *));
-		else
-			len = ft_print_string(&fmt, va_arg(ap, char *));
-	}
-	else if (fmt.conv && ft_strchr("uoxXbB", fmt.conv))
+		return (ft_print_integer(&fmt, get_arg_signed(&fmt, ap)));
+	if (fmt.conv == 'c')
+		return ((fmt.mod == MOD_L) ?
+				ft_print_wide_character(&fmt, (wchar_t)va_arg(ap, wint_t)) :
+				ft_print_character(&fmt, (char)va_arg(ap, int)));
+	if (fmt.conv == '%')
+		return (ft_print_character(&fmt, '%'));
+	if (fmt.conv == 's')
+		return ((fmt.mod == MOD_L) ?
+				ft_print_wide_string(&fmt, (wchar_t *)va_arg(ap, wint_t *)) :
+				ft_print_string(&fmt, va_arg(ap, char *)));
+	if (fmt.conv && ft_strchr("uoxXbB", fmt.conv))
 	{
 		uintmax_t	num;
+		int			len;
 
 		num = get_arg_unsigned(&fmt, ap);
 		if (fmt.conv == 'u')
@@ -122,17 +113,13 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 			len = ft_print_binary(&fmt, num);
 		else									// if 'x' or 'X'
 			len = ft_print_hexadecimal(&fmt, num);
+		return (len);
 	}
-	else if (fmt.conv == 'p')
-	{
-		len = ft_print_pointer(&fmt, va_arg(ap, void *));
-	}
-	else
-	{
-
-
-
-
+	if (fmt.conv == 'p')
+		return (ft_print_pointer(&fmt, va_arg(ap, void *)));
+	//
+	//
+	//
 	ft_putstr("\e[32m{\n    flags:      \"");
 	if (fmt.alt)
 		ft_putchar('#');
@@ -172,13 +159,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	ft_putstr(";\n}\e[0m");
 	if (fmt.conv && fmt.conv != '%')
 		(void)va_arg(ap, int);
-	len = 1000;
-
-
-	}
-	//
-	//
-	return (len);					//
+	return (1000);					//
 }
 
 /*
