@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 21:30:23 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 12:42:49 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 
 
 char	*pf_itoa_base(const t_fmt *f, uintmax_t num);
-char	*unicode_to_utf8(wchar_t wc);
+char	*pf_unicode_to_utf8(wchar_t wc);
 
 int		count_zeroes(const t_fmt *f, int n_prefix, int n_digits);
 

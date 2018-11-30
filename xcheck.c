@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 19:50:21 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 21:59:32 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 12:40:22 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ int				res;
 	fflush(stdout);\
 	res = f(__VA_ARGS__);\
 	printf("\e[31m(%d)\e[0m\n", res);
+#define DISPLAY_LOCALE\
+	printf("\e[32m(locale \"%s\")", setlocale(LC_ALL, NULL));
+#define SET_LOCALE(loc)\
+	setlocale(LC_ALL, loc);
 #define TEST(name)			void name(t_func f) {
 #define END					}
 #define TEST_ITER(name,...) TEST(name) MAP(_##name, __VA_ARGS__) END

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:48:44 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 21:31:18 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 12:43:02 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ft_print_wide_character(const t_fmt *f, wchar_t wc)
 	char	*s;
 	int		n_bytes;
 
-	s = unicode_to_utf8(wc);
+	s = pf_unicode_to_utf8(wc);
 	n_bytes = ft_strlen(s);
 	if (!f->left)
 		ft_putnchar((f->zero) ? '0' : ' ', f->width - n_bytes);

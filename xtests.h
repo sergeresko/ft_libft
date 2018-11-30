@@ -328,12 +328,14 @@ END
 	PF("%010.4s", s)
 TEST_ITER(Bs_zero_and_precision, NULL, "zap", "longish")
 
-TEST(Xc_wide)
-	PF("%lc", L'ы')
-	setlocale(LC_ALL, "");
-	PF("%lc", L'ы')
-	setlocale(LC_ALL, "C");
-END
+#define _Xc_wide(wc)\
+	DISPLAY_LOCALE\
+	PF("%lc", wc)\
+	SET_LOCALE("")\
+	DISPLAY_LOCALE\
+	PF("%lc", wc)\
+	SET_LOCALE("C")
+TEST_ITER(Xc_wide, L'ы', L'我')
 
 /*
 **	Add your tests here.
