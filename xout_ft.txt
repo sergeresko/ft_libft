@@ -1,0 +1,8 @@
+[32m(locale "C")[31m("ABC%lsDEF", ((void *)0))[0mABC(null)DEF[31m(12)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", ((void *)0))[0mABC(null)DEF[31m(12)[0m
+[32m(locale "C")[31m("ABC%lsDEF", L"English")[0mABCEnglishDEF[31m(13)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", L"English")[0mABCEnglishDEF[31m(13)[0m
+[32m(locale "C")[31m("ABC%lsDEF", L"Українська")[0mABCУкраїнськаDEF[31m(26)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", L"Українська")[0mABCУкраїнськаDEF[31m(26)[0m
+[32m(locale "C")[31m("ABC%lsDEF", L"中文")[0mABC中文DEF[31m(12)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", L"中文")[0mABC中文DEF[31m(12)[0m

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/30 12:42:49 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 14:40:39 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ char	g_pf_buf[PF_BUF_SIZE + 1];
 # define PF_BUF_END (g_pf_buf + PF_BUF_SIZE)
 
 
-char	*pf_itoa_base(const t_fmt *f, uintmax_t num);
-char	*pf_unicode_to_utf8(wchar_t wc);
+char	*pf_itoa(const t_fmt *f, uintmax_t num);
+char	*pf_wctomb(wchar_t wc);
 
 int		count_zeroes(const t_fmt *f, int n_prefix, int n_digits);
 
@@ -96,6 +96,7 @@ int		ft_print_character(const t_fmt *f, char c);
 int		ft_print_wide_character(const t_fmt *f, wchar_t wc);
 
 int		ft_print_string(const t_fmt *f, const char *str);
+int		ft_print_wide_string(const t_fmt *f, const wchar_t *wstr);
 
 int		ft_print_integer(const t_fmt *f, intmax_t num);
 

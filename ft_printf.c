@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 21:34:17 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 14:42:55 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,10 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	}
 	else if (fmt.conv == 's')
 	{
-		len = ft_print_string(&fmt, va_arg(ap, char *));
+		if (fmt.mod == MOD_L)
+			len = ft_print_wide_string(&fmt, (wchar_t *)va_arg(ap, wint_t *));
+		else
+			len = ft_print_string(&fmt, va_arg(ap, char *));
 	}
 	else if (fmt.conv && ft_strchr("uoxXbB", fmt.conv))
 	{

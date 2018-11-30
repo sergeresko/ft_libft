@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:32:19 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 15:16:17 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 13:56:02 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_print_hexadecimal(const t_fmt *f, uintmax_t num)
 	int		n_digits;
 	int		val_len;
 
-	s = pf_itoa_base(f, num);
+	s = pf_itoa(f, num);
 	n_prefix = (num != 0 && f->alt == 1) ? 2 : 0;	// = (f->alt && num) ? 2 : 0
 	n_digits = ft_strlen(s);
 	n_zeroes = count_zeroes(f, n_prefix, n_digits);

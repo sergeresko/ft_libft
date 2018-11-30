@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_unicode_to_utf8.c                               :+:      :+:    :+:   */
+/*   pf_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 21:29:09 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/30 12:42:34 by syeresko         ###   ########.fr       */
+/*   Created: 2018/11/28 21:13:49 by syeresko          #+#    #+#             */
+/*   Updated: 2018/11/30 13:59:20 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wchar.h>
+#include "libft.h"
 #include "ft_printf.h"
+#include <inttypes.h>
 
-char	*pf_unicode_to_utf8(wchar_t wc)
+char	*pf_itoa(const t_fmt *f, uintmax_t num)
 {
-	char	*s;
-	char	mask;
+	unsigned	base;
+	char		letter_a;
+	char		*s;
+	char		digit;
 
+	base = 10;
+	if (ft_strchr("xXp", f->conv))
+		base = 16;
+	else if (f->conv == 'o')
+		base = 8;
+	else if (ft_strchr("bB", f->conv))
+		base = 2;
+	letter_a = (f->conv == 'X') ? 'A' : 'a';
 	s = PF_BUF_END;
 	*s = '\0';
-	if (wc < '\200')
-		*(--s) = wc;
-	else
+	while (num)
 	{
-		mask = '\200';
-		while (wc > '\077')
-		{
-			*(--s) = '\200' | (wc & '\077');
-			wc >>= 6;
-			mask = '\200' | (mask >> 1);
-		}
-		*(--s) = mask | wc;
+		digit = num % base;
+		*(--s) = digit + ((digit < 10) ? '0' : (letter_a - 10));
+		num /= base;
 	}
 	return (s);
 }

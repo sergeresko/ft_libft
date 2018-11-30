@@ -1,6 +1,8 @@
-[31m("%10.*d", -5, 42)[0m        42[31m(10)[0m
-[31m("%10.*s", -5, "abc")[0m       abc[31m(10)[0m
-[32m(locale "C")[31m("%lc", L'ы')[0m[31m(-1)[0m
-[32m(locale "en_US.UTF-8")[31m("%lc", L'ы')[0mы[31m(-1)[0m
-[32m(locale "C")[31m("%lc", L'我')[0m[31m(-1)[0m
-[32m(locale "en_US.UTF-8")[31m("%lc", L'我')[0m我[31m(-1)[0m
+[32m(locale "C")[31m("ABC%lsDEF", ((void *)0))[0mABC(null)DEF[31m(12)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", ((void *)0))[0mABC(null)DEF[31m(12)[0m
+[32m(locale "C")[31m("ABC%lsDEF", L"English")[0mABCEnglishDEF[31m(13)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", L"English")[0mABCEnglishDEF[31m(13)[0m
+[32m(locale "C")[31m("ABC%lsDEF", L"Українська")[0m[31m(-1)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", L"Українська")[0mABCУкраїнськаDEF[31m(-1)[0m
+[32m(locale "C")[31m("ABC%lsDEF", L"中文")[0m[31m(-1)[0m
+[32m(locale "en_US.UTF-8")[31m("ABC%lsDEF", L"中文")[0mABC中文DEF[31m(-1)[0m

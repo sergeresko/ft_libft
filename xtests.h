@@ -329,13 +329,40 @@ END
 TEST_ITER(Bs_zero_and_precision, NULL, "zap", "longish")
 
 #define _Xc_wide(wc)\
-	DISPLAY_LOCALE\
-	PF("%lc", wc)\
+	DISPLAY_LOCALE PF("%lc", wc)\
 	SET_LOCALE("")\
-	DISPLAY_LOCALE\
-	PF("%lc", wc)\
+	DISPLAY_LOCALE PF("%lc", wc)\
 	SET_LOCALE("C")
-TEST_ITER(Xc_wide, L'ы', L'我')
+TEST_ITER(Xc_wide, L't', L'щ', L'我')
+
+#define _Xs_wide(ws)\
+	DISPLAY_LOCALE PF("%ls", ws)\
+	SET_LOCALE("")\
+	DISPLAY_LOCALE PF("%ls", ws)\
+	SET_LOCALE("C")
+TEST_ITER(Xs_wide, NULL, L"English", L"Українська", L"中文")
+
+#define _Xc_wide_options(wc)\
+	SET_LOCALE("")\
+	DISPLAY_LOCALE PF("%-6lc", wc)\
+	DISPLAY_LOCALE PF("%2lc", wc)\
+	SET_LOCALE("C")
+TEST_ITER(Xc_wide_options, L't', L'щ', L'我')
+
+#define _Xs_wide_options(ws)\
+	SET_LOCALE("")\
+	DISPLAY_LOCALE PF("%-7ls", ws)\
+	DISPLAY_LOCALE PF("%.4ls", ws)\
+	DISPLAY_LOCALE PF("%5.4ls", ws)\
+	SET_LOCALE("C")
+TEST_ITER(Xs_wide_options, NULL, L"English", L"Українська", L"中文")
+	
+#define _Xs_wide_context(ws)\
+	DISPLAY_LOCALE PF("ABC%lsDEF", ws)\
+	SET_LOCALE("")\
+	DISPLAY_LOCALE PF("ABC%lsDEF", ws)\
+	SET_LOCALE("C")
+TEST_ITER(Xs_wide_context, NULL, L"English", L"Українська", L"中文")
 
 /*
 **	Add your tests here.
@@ -354,7 +381,9 @@ ALL_TESTS(
 	T(Hs_zero) T(H_percent_zero) T(Ho_zero) T(Hp_zero)
 	T(Hu_zero) T(HxX_zero) T(Hdi_zero)
 	T(Bs_zero_and_precision)
-	T(Xc_wide)
+	T(Xc_wide) T(Xs_wide)
+	T(Xc_wide_options) T(Xs_wide_options)
+	T(Xs_wide_context)
 
 /*
 **	Add the names of your test here.

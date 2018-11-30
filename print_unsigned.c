@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 17:05:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 13:47:09 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 13:56:49 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			ft_print_unsigned(const t_fmt *f, uintmax_t num)
 	int		n_digits;
 	int		val_len;
 
-	s = pf_itoa_base(f, num);
+	s = pf_itoa(f, num);
 	n_prefix = 0;										//
 	n_digits = ft_strlen(s);
 	n_zeroes = count_zeroes(f, n_prefix, n_digits);

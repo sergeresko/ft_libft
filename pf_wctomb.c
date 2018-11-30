@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_itoa_base.c                                     :+:      :+:    :+:   */
+/*   pf_wctomb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/28 21:13:49 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/29 13:50:18 by syeresko         ###   ########.fr       */
+/*   Created: 2018/11/29 21:29:09 by syeresko          #+#    #+#             */
+/*   Updated: 2018/11/30 14:53:04 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <wchar.h>
 #include "ft_printf.h"
-#include <inttypes.h>
 
-char	*pf_itoa_base(const t_fmt *f, uintmax_t num)
+char	*pf_wctomb(wchar_t wc)
 {
-	unsigned	base;
-	char		letter_a;
-	char		*s;
-	char		digit;
+	char	*s;
+	char	mask;
 
-	base = 10;
-	if (ft_strchr("xXp", f->conv))
-		base = 16;
-	else if (f->conv == 'o')
-		base = 8;
-	else if (ft_strchr("bB", f->conv))
-		base = 2;
-	letter_a = (f->conv == 'X') ? 'A' : 'a';
 	s = PF_BUF_END;
 	*s = '\0';
-	while (num)
+	if (wc < 0200)
+		*(--s) = wc;
+	else
 	{
-		digit = num % base;
-		*(--s) = digit + ((digit < 10) ? '0' : (letter_a - 10));
-		num /= base;
+		mask = 0200;
+		while (wc > 0077)
+		{
+			*(--s) = 0200 | (wc & 0077);
+			wc >>= 6;
+			mask = 0200 | (mask >> 1);
+		}
+		*(--s) = mask | wc;
 	}
 	return (s);
 }
