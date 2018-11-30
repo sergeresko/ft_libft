@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/30 14:40:39 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/11/30 16:27:28 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include <inttypes.h>
+# include <wchar.h>
 
 # define	PF_FLAGS		"#0- +\'"
 # define	PF_MODIFIERS	"hljzL"
