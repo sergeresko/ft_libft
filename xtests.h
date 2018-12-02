@@ -333,7 +333,7 @@ TEST_ITER(Bs_0_and_prec, NULL, "zap", "longish")
 	SET_LOCALE("")\
 	DISPLAY_LOCALE PF("%lc", wc)\
 	SET_LOCALE("C")
-TEST_ITER(Xc_wide, L't', L'щ', L'我')
+TEST_ITER(Xc_wide, L't', L'щ', L'我', 94500)
 
 #define _Xs_wide(ws)\
 	DISPLAY_LOCALE PF("%ls", ws)\

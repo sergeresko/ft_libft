@@ -51,6 +51,9 @@ int		main(void)
 	i = printf("|%.12.*d|\n", -6, 12345);
 	printf("%d\n", i);
 
+	i = printf("|%+#10.3f|\n", 1.e300 * 1.e300);
+	printf("%d\n", i);
+
 	setlocale(LC_ALL, "en_US.UTF-8");
 	i = printf("%lc", (wchar_t)L'我');
 	printf("%d\n", i);

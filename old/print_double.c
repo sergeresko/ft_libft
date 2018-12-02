@@ -12,12 +12,12 @@ union	u_double
 **	returns a positive integral part of the argument
 */
 
-double	entier(double x)
+double	entier(double num)
 {
-	unsigned int	e;
 	union u_double	u;
+	unsigned		e;
 
-	u.f = x;
+	u.f = num;
 	e = u.i << 1 >> 53;		// biased exponent
 	if (e < 0x3ff)
 		return (0.);
@@ -30,87 +30,101 @@ double	entier(double x)
 	return (u.f);
 }
 
+union	u_long_double
+{
+	long double		f;
+	struct			s_i
+	{
+		uintmax_t		m;
+		unsigned short	s;
+	}				i;
+};
+
+long double	l_entier(long double num)
+{
+	union u_long_double	u;
+	unsigned			e;
+
+	u.f = num;
+	e = u.i.s << 1 >> 1;
+	if (e < 0x3fff)
+		return (0.L);
+	e -= 0x3fff;
+	if (e < 63)
+	{
+		u.i.m >>= 63 - e;
+		u.i.m <<= 63 - e;
+	}
+	return (u.f);
+}
+
+
 #define BUF_SIZE 1024
 
-char	g_s1[BUF_SIZE + 1];
-char	g_s2[BUF_SIZE + 1];
+char	g_buf[BUF_SIZE + 1];
 
-char	digit(double mod)
-{
-	return ((char)(mod + .4) + '0');
-}
+#define	BUF_START g_buf
 
-char	*entier_s(double ent)
+char	*entier_to_string(double ent)
 {
 	char	*s;
-	double	fr;
+	double	unit;
+	double	div;
 
-	s = g_s1 + BUF_SIZE;
-	*s = '\0';
-	while (ent > .9)		// why ?
+	s = BUF_START;
+	unit = 1.;
+	while (ent / unit >= 10.)
+		unit *= 10.;
+	while (unit >= 1.)
 	{
-		ent /= 10.;
-//		ent *= .1;
-		fr = ent - entier(ent);
-		*(--s) = digit(10. * fr);
-//		printf("ent = %f, fr = %f\n", ent, fr);
-		ent -= fr;
+		div = entier(ent / unit);
+		*(s++) = '0' + (char)div;
+		ent -= div * unit;
+		unit /= 10.;
 	}
-	return (s);
+	*s = '\0';
+	return (BUF_START);
 }
 
-char	*frac_s(double x, int prec)
+char	*frac_to_string(double frac, int prec)
 {
 	char 	*s;
-	double	ent;
 
-	s = g_s2;
+	s = BUF_START;
 	while (prec--)
 	{
-		x *= 10;
-		ent = entier(x);
-		*(s++) = '0' + (char)ent;
-//		printf("x = %f, ent = %f\n", x, ent);			//
-		x -= ent;
+		frac *= 10.;
+		*(s++) = '0' + (char)frac;
+//		printf("%c %.20f\n", s[-1], frac);
+		frac -= entier(frac);
 	}
 	*s = '\0';
-	return (g_s2);
+	return (BUF_START);
 }
 
-double	round_add(double frac, int precision)
+double	round_add(double frac, int prec)
 {
-	double		u;		// unit
-	int			p;
+	double		unit;
 
-//	printf("%.20f\n", frac);
-	p = precision;
-	while (p--)
+	unit = 1.;
+	while (prec--)
 	{
+		unit *= .1;
 		frac *= 10.;
+//		printf("%c %.20f\n", '0' + (char)frac, frac);
 		frac -= entier(frac);
-//		printf("%.20f\n", frac);
 	}
-	if (frac < .5)
-		return (0.);
-	p = precision;
-	u = 1.;
-	while (p--)
-		u /= 10.;
-	return (u);
-}
-
-double	exp10(unsigned n)
-{
-	double	x;
-
-	x = 1.;
-	while (n--)
-		x *= 10.;
-	return (x);
+//	printf("<%f|%c>", frac, frac >= .5 ? '1' : '0');
+	if (frac >= .5)
+		return (unit * .5);
+	return (0.);
 }
 
 int		main(void)
 {
+
+	/*
+
 //	double	x = 56789012345.67890123456789;
 //	double	x = 19.99995;
 //	double	x = 1.42456e30;
@@ -158,31 +172,26 @@ int		main(void)
 	unsigned	n = 30;
 	printf("10^%u = %f\n", n, exp10(n));
 
-//	x = 1.e-30;
-//	printf("%.40f\n%.30f\n", x, x);
-//	printf("0.");
-//	for (int i = 0; i < 30; ++i)
-//	{
-//		x *= 10;
-//		printf("%c", '0' + (char)x);
-//		x -= (char)x;
-//	}
+	*/
 
-//	for (int i = 0; i < 30; ++i)
-//		printf("%.10f %.10f\n", 1. / i, round_add(1. / i, 2));
 
-	x = 1.;
-	for (int i = 0; i < 300; ++i)
-	{
-		printf("%2d %.20f\n", i, x);
-		x *= 10.;
-	}
-	for (int i = 300; i >= 0; --i)
-	{
-		printf("%2d %.20f\n", i, x);
-		x /= 10.;
-	}
+	int		prec = 6;
+//	double	x = 1.99999999999999;
+	double	x = 111111111111999999999999.1111111e20;
+	double	frac;					//
 
-	printf("%d", exp10(3) / 10. == exp10(2));
+	printf("libc: %.*f\n", prec, x);
+	printf(" *10: %.*f\n", prec, x * 10.);
+	frac = x - entier(x);			//	or just: x += round_add(x - entier(x), prec);
+	x += round_add(frac, prec);		//
+	printf("ft  : ");
+	printf("%s.", entier_to_string(entier(x)));
+	printf("%s\n", frac_to_string(x - entier(x), prec));
+
+
+	long double	y = 123.456L;
+
+	printf("%Lf\n%Lf\n", y, l_entier(y));
+
 	return (0);
 }

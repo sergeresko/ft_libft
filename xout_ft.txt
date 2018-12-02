@@ -1,6 +1,8 @@
-[32m(locale "en_US.UTF-8")[31m("%-6lc", L't')[0mt     [31m(6)[0m
-[32m(locale "en_US.UTF-8")[31m("%2lc", L't')[0m t[31m(2)[0m
-[32m(locale "en_US.UTF-8")[31m("%-6lc", L'щ')[0mщ    [31m(6)[0m
-[32m(locale "en_US.UTF-8")[31m("%2lc", L'щ')[0mщ[31m(2)[0m
-[32m(locale "en_US.UTF-8")[31m("%-6lc", L'我')[0m我   [31m(6)[0m
-[32m(locale "en_US.UTF-8")[31m("%2lc", L'我')[0m我[31m(3)[0m
+[32m(locale "C")[31m("%lc", L't')[0mt[31m(1)[0m
+[32m(locale "en_US.UTF-8")[31m("%lc", L't')[0mt[31m(1)[0m
+[32m(locale "C")[31m("%lc", L'щ')[0mщ[31m(2)[0m
+[32m(locale "en_US.UTF-8")[31m("%lc", L'щ')[0mщ[31m(2)[0m
+[32m(locale "C")[31m("%lc", L'我')[0m我[31m(3)[0m
+[32m(locale "en_US.UTF-8")[31m("%lc", L'我')[0m我[31m(3)[0m
+[32m(locale "C")[31m("%lc", 94500)[0m���[31m(3)[0m
+[32m(locale "en_US.UTF-8")[31m("%lc", 94500)[0m���[31m(3)[0m
