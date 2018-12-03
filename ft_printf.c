@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/12/03 13:12:25 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/12/03 13:59:41 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 				ft_print_float(&fmt, va_arg(ap, double)));
 	//
 	//
-	//
+	/*
 	ft_putstr("\e[32m{\n    flags:      \"");
 	if (fmt.alt)
 		ft_putchar('#');
@@ -163,7 +163,11 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	ft_putstr(";\n}\e[0m");
 	if (fmt.conv && fmt.conv != '%')
 		(void)va_arg(ap, int);
-	return (1000);					//
+	return (1000);
+	*/
+	//
+	//
+	return (0);
 }
 
 /*
