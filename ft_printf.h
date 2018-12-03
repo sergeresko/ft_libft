@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 17:14:38 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/30 16:27:28 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/12/03 13:07:29 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		ft_print_binary(const t_fmt *f, uintmax_t num);
 
 int		ft_print_pointer(const t_fmt *f, void *ptr);
 
+int		ft_print_float(const t_fmt *f, long double num);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
-/*   Updated: 2018/11/30 21:03:31 by syeresko         ###   ########.fr       */
+/*   Updated: 2018/12/03 13:12:25 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ int		ft_print_formatted(const char **a_str, va_list ap)
 	}
 	if (fmt.conv == 'p')
 		return (ft_print_pointer(&fmt, va_arg(ap, void *)));
+	if (fmt.conv == 'f')
+		return ((fmt.mod == MOD_L_CAPITAL) ?
+				ft_print_float(&fmt, va_arg(ap, long double)) :
+				ft_print_float(&fmt, va_arg(ap, double)));
 	//
 	//
 	//

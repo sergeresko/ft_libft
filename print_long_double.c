@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_long_double.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/03 13:06:36 by syeresko          #+#    #+#             */
+/*   Updated: 2018/12/03 13:50:08 by syeresko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "ft_printf.h"
 
 #include <inttypes.h>
 #include <stdio.h>
-
 
 union	u_long_double
 {
@@ -25,7 +36,7 @@ long double	l_entier(long double num)
 	unsigned			e;
 
 	u.f = num;
-//	e = u.i.e << 1 >> 1;
+	e = u.i.e << 1 >> 1;	//	no need to shift, as the argument must be positive
 	if (e < 0x3fff)
 		return (0.);
 	e -= 0x3fff;
@@ -59,10 +70,10 @@ char	*entier_to_string(long double ent)
 		ent -= div * unit;
 		unit /= 10.;
 	}
-	if (s == BUF_START)
+	if (s == PF_BUF_START)
 		*(s++) = '0';
 	*s = '\0';
-	return (BUF_START);
+	return (PF_BUF_START);
 }
 
 /*
@@ -81,13 +92,15 @@ char	*frac_to_string(long double frac, int prec)
 		frac -= l_entier(frac);
 	}
 	*s = '\0';
-	return (BUF_START);
+	return (PF_BUF_START);
 }
 
-long double	round_add(long double frac, int prec)
+long double	round_add(long double num, int prec)
 {
+	long double		frac;
 	long double		unit;
 
+	frac = num - l_entier(num);
 	unit = 1.;
 	while (prec--)
 	{
@@ -96,8 +109,8 @@ long double	round_add(long double frac, int prec)
 		frac -= l_entier(frac);
 	}
 	if (frac >= 0.5)
-		return (unit * 0.5);
-	return (0.);
+		num += unit * 0.5;
+	return (num);
 }
 
 char	get_sign(const t_fmt *f, long double num)
@@ -111,16 +124,27 @@ char	get_sign(const t_fmt *f, long double num)
 	return ('\0');
 }
 
-int		print_inf_or_nan(const t_fmt *f, char sign, const char *msg)
+int		print_inf_or_nan(const t_fmt *f, long double num)
 {
-	int		val_len;
+//	const char	msg[][4] = {"nan", "inf"};
+	union u_long_double		u;
+	char		sign;
+	int			val_len;
+//	const char	*s;
 
-	val_len = (sign != '\0') + ft_strlen(msg);
+	u.f = num;
+	if (~u.i.e << 1)
+		return (0);
+	sign = (u.i.m << 1 >> 1) ? '\0' : get_sign(f, num);
+//	s = (u.i.m << 1 >> 1) ? msg[0] : msg[1];
+	val_len = (sign != '\0') + 3;
+//	val_len = (sign != '\0') + ft_strlen(s);
 	if (!f->left)
 		ft_putnchar(' ', f->width - val_len);
 	if (sign)
 		ft_putchar(sign);
-	ft_putstr(msg);
+	ft_putstr((u.i.m << 1 >> 1) ? "nan" : "inf");
+//	ft_putstr(s);
 	if (f->left)
 		ft_putnchar(' ', f->width - val_len);
 	return (ft_max(f->width, val_len));
@@ -129,16 +153,28 @@ int		print_inf_or_nan(const t_fmt *f, char sign, const char *msg)
 int		ft_print_float(const t_fmt *f, long double num)
 {
 	char	*s;
+	char	sign;
 	int		prec;
-	int		n_prefix;
-	int		n_zeroes;
-	int		n_ent;
-	int		n_point;
 	int		val_len;
 
+	if ((val_len = print_inf_or_nan(f, num)))
+		return (val_len);
+	sign = get_sign(f, num);
 	prec = (f->prec == PF_PREC_NONE) ? 6 : f->prec;
-	num += round_add(x - l_entier(x), prec);
-	s = entier_to_string(l_entier(num));
-	n_ent = ft_strlen(s);
-
+	num = round_add((num < 0.) ? -num : num, prec);
+	s = entier_to_string(num);
+	val_len = (sign != '\0') + ft_strlen(s) + (prec > 0 || f->alt) + prec;
+	if (!f->left && !f->zero)
+		ft_putnchar(' ', f->width - val_len);
+	if (sign)
+		ft_putchar(sign);
+	if (!f->left && f->zero)
+		ft_putnchar('0', f->width - val_len);
+	ft_putstr(s);
+	if (prec > 0 || f->alt)
+		ft_putchar('.');
+	ft_putstr(frac_to_string(num - l_entier(num), prec));
+	if (f->left)
+		ft_putnchar(' ', f->width - val_len);
+	return (ft_max(f->width, val_len));
 }

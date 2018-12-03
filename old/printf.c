@@ -51,7 +51,10 @@ int		main(void)
 	i = printf("|%.12.*d|\n", -6, 12345);
 	printf("%d\n", i);
 
-	i = printf("|%+#10.3f|\n", 1.e300 * 1.e300);
+	i = printf("|%+#10.3f|\n", 0. / 0. - 1.);
+	printf("%d\n", i);
+
+	i = printf("|%d|\n", -1.e300 * 1.e300 < 0.);
 	printf("%d\n", i);
 
 	setlocale(LC_ALL, "en_US.UTF-8");

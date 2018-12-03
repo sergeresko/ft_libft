@@ -6,7 +6,7 @@
 #    By: syeresko <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:06:47 by syeresko          #+#    #+#              #
-#    Updated: 2018/11/30 14:42:33 by syeresko         ###   ########.fr        #
+#    Updated: 2018/12/03 13:11:03 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC = \
 		print_hexadecimal.c		\
 		print_octal.c			\
 		print_binary.c			\
-		print_pointer.c
+		print_pointer.c			\
+		print_long_double.c
 
 all: $(NAME)
 
